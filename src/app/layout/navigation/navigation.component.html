@@ -1,0 +1,72 @@
+<header
+  class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom px-2 navbar-light bg-secondary"
+>
+  <a
+    routerLink="/"
+    class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none"
+  >
+  </a>
+
+  <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+    <li>
+      <a
+        routerLink="/"
+        class="nav-link px-2 link-light"
+        routerLinkActive="activebutton"
+        ariaCurrentWhenActive="page"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >Inicio</a
+      >
+    </li>
+    <li>
+      <a
+        routerLink="/preferencias"
+        class="nav-link px-2 link-light"
+        routerLinkActive="activebutton"
+        ariaCurrentWhenActive="page"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >Preferencias</a
+      >
+    </li>
+    <li>
+      <a
+        routerLink="/jugar"
+        class="nav-link px-2 link-light"
+        routerLinkActive="activebutton"
+        ariaCurrentWhenActive="page"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >Jugar</a
+      >
+    </li>
+    <li>
+      <a
+        routerLink="/records"
+        class="nav-link px-2 link-light"
+        routerLinkActive="activebutton"
+        ariaCurrentWhenActive="page"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >Records</a
+      >
+    </li>
+  </ul>
+
+  <div class="col-md-3 text-end">
+    <a class="btn btn-success me-2" routerLink="/login">
+      Login
+    </a>
+    <a class="btn btn-primary me-2" routerLink="/register"
+    >Registro</a
+    >
+    <a
+      class="btn btn-danger me-2"
+      routerLink="/logout"
+    >
+      Logout
+    </a>
+    <a
+      class="btn btn-danger me-2"
+    >
+      Delete
+    </a>
+  </div>
+</header>
