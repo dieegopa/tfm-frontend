@@ -7,6 +7,9 @@ import {NavigationComponent} from './layout/navigation/navigation.component';
 import {SkeletonComponent} from './layout/skeleton/skeleton.component';
 import {LocationStrategy, PathLocationStrategy} from '@angular/common';
 import {HttpClientModule} from '@angular/common/http';
+import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
+import { environment } from '../environments/environment';
+import { provideAuth,getAuth } from '@angular/fire/auth';
 
 @NgModule({
   declarations: [
@@ -19,6 +22,8 @@ import {HttpClientModule} from '@angular/common/http';
     AppRoutingModule,
     NgbModule,
     HttpClientModule,
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideAuth(() => getAuth()),
   ],
   providers: [
     {
