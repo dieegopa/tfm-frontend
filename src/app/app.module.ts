@@ -7,9 +7,12 @@ import {NavigationComponent} from './layout/navigation/navigation.component';
 import {SkeletonComponent} from './layout/skeleton/skeleton.component';
 import {LocationStrategy, PathLocationStrategy} from '@angular/common';
 import {HttpClientModule} from '@angular/common/http';
-import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
-import { environment } from '../environments/environment';
-import { provideAuth,getAuth } from '@angular/fire/auth';
+import {initializeApp, provideFirebaseApp} from '@angular/fire/app';
+import {environment} from '../environments/environment';
+import {getAuth, provideAuth} from '@angular/fire/auth';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
+import {MatButtonModule} from "@angular/material/button";
 
 @NgModule({
   declarations: [
@@ -19,11 +22,14 @@ import { provideAuth,getAuth } from '@angular/fire/auth';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     NgbModule,
     HttpClientModule,
+    FontAwesomeModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
+    MatButtonModule,
   ],
   providers: [
     {

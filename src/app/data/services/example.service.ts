@@ -1,5 +1,4 @@
 import {Injectable} from "@angular/core";
-import {Auth} from "@angular/fire/auth";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 import {CookieService} from "ngx-cookie-service";
@@ -9,10 +8,6 @@ import {CookieService} from "ngx-cookie-service";
 })
 export class ExampleService {
 
-  headers = new HttpHeaders().set(
-    'Authorization', 'Bearer ' + this.cookies.get('token')
-  );
-
   constructor(
     private http: HttpClient,
     private cookies: CookieService,
@@ -20,8 +15,14 @@ export class ExampleService {
   }
 
   accessDashboard() {
+
+    const cookieData = JSON.parse(this.cookies.get('authData'));
+    let headers = new HttpHeaders().set(
+      'Authorization', 'Bearer ' + cookieData.token
+    );
+
     return this.http.get(
-      environment.backendUrl + '/dashboard', {headers: this.headers}
+      environment.backendUrl + '/dashboard', {headers: headers}
     );
   }
 }

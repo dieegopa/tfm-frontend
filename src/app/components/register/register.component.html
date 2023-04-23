@@ -1,12 +1,28 @@
-<h2 class="text-3xl">Registro de usuario</h2>
-<form [formGroup]="formReg" (ngSubmit)="onSubmit()">
-  <div class="mb-4">
-    <label class="form-label">Email</label>
-    <input type="text" class="form-control" formControlName="email">
-  </div>
-  <div class="mb-3">
-    <label class="form-label">Password</label>
-    <input type="password" class="form-control" formControlName="password">
-  </div>
-  <input type="submit" value="Enviar">
-</form>
+<h1 class="text-center">Registro de Usuario</h1>
+
+<div class="flex justify-content-center">
+  <mat-card>
+    <mat-card-content>
+      <form class="w-96" [formGroup]="formReg" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="fill" class="w-full">
+          <mat-label>Email</mat-label>
+          <input matInput placeholder="email@email.com" [formControl]="email" required [(ngModel)]="registerEmail">
+          <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="w-full">
+          <mat-label>Enter your password</mat-label>
+          <input matInput [type]="hide ? 'password' : 'text'" [formControl]="password" [(ngModel)]="registerPassword" required>
+          <mat-error *ngIf="password.invalid">{{getErrorMessagePassword()}}</mat-error>
+          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                  [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+        </mat-form-field>
+        <div class="flex justify-center">
+          <button mat-raised-button color="primary" [disabled]=verifyDisabled()>Registrar</button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+
+</div>

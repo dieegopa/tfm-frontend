@@ -20,53 +20,31 @@
     </li>
     <li>
       <a
-        routerLink="/preferencias"
+        routerLink="/main"
         class="nav-link px-2 link-light"
         routerLinkActive="activebutton"
         ariaCurrentWhenActive="page"
         [routerLinkActiveOptions]="{ exact: true }"
-      >Preferencias</a
-      >
-    </li>
-    <li>
-      <a
-        routerLink="/jugar"
-        class="nav-link px-2 link-light"
-        routerLinkActive="activebutton"
-        ariaCurrentWhenActive="page"
-        [routerLinkActiveOptions]="{ exact: true }"
-      >Jugar</a
-      >
-    </li>
-    <li>
-      <a
-        routerLink="/records"
-        class="nav-link px-2 link-light"
-        routerLinkActive="activebutton"
-        ariaCurrentWhenActive="page"
-        [routerLinkActiveOptions]="{ exact: true }"
-      >Records</a
+      >Main</a
       >
     </li>
   </ul>
 
   <div class="col-md-3 text-end">
-    <a class="btn btn-success me-2" routerLink="/login">
+    <a mat-raised-button color="primary" class="me-2" routerLink="/login" *ngIf="!isLogged()">
       Login
     </a>
-    <a class="btn btn-primary me-2" routerLink="/register"
+
+    <a mat-raised-button class="me-2" routerLink="/register" *ngIf="!isLogged()"
     >Registro</a
     >
     <a
-      class="btn btn-danger me-2"
-      routerLink="/logout"
+      mat-raised-button color="warn"
+      class="me-2"
+      *ngIf="isLogged()"
+      (click)="logout()"
     >
       Logout
-    </a>
-    <a
-      class="btn btn-danger me-2"
-    >
-      Delete
     </a>
   </div>
 </header>

@@ -11,6 +11,7 @@ import {HttpClient} from "@angular/common/http";
 import {User} from "../../shared/models/user.model";
 import {environment} from "../../../environments/environment";
 import {CookieService} from "ngx-cookie-service";
+import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,7 @@ export class UserService {
     private auth: Auth,
     private http: HttpClient,
     private cookies: CookieService,
+    private router: Router,
   ) {
   }
 
@@ -37,7 +39,7 @@ export class UserService {
   }
 
   logout() {
-    this.cookies.delete('token');
+    this.cookies.delete('authData');
     return signOut(this.auth)
   }
 
@@ -46,5 +48,24 @@ export class UserService {
       environment.backendUrl + '/register', JSON.stringify(user),
       {observe: 'response'}
     );
+  }
+
+  isLogged() {
+    if (this.cookies.get('authData')) {
+      const cookieData = JSON.parse(this.cookies.get('authData'));
+      if (new Date().getTime() > cookieData.validTime) {
+        this.logout()
+          .then(r => {
+              this.router.navigate(['/']);
+            }
+          )
+          .catch(e => {
+            console.log(e);
+          })
+      }
+      return new Date().getTime() <= cookieData.validTime;
+    }
+
+    return false;
   }
 }

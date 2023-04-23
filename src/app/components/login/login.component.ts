@@ -3,6 +3,9 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {UserService} from "../../data/services/user.service";
 import {Router} from "@angular/router";
 import {CookieService} from "ngx-cookie-service";
+import {faGoogle} from "@fortawesome/free-brands-svg-icons";
+import {Notify} from 'notiflix/build/notiflix-notify-aio';
+import {ErrorAuthMessage} from "../../shared/models/ErrorAuthMessage";
 import {User} from "../../shared/models/user.model";
 
 @Component({
@@ -12,7 +15,26 @@ import {User} from "../../shared/models/user.model";
 })
 export class LoginComponent implements OnInit {
 
+  faGoogle = faGoogle;
+
+  authData: {
+    token: string,
+    validTime: number,
+    username: string | null,
+  } = {
+    token: '',
+    validTime: 0,
+    username: '',
+  }
+
   formLogin: FormGroup;
+
+  email = new FormControl('', [Validators.required, Validators.email]);
+  password = new FormControl('', [Validators.required]);
+  hide = true;
+
+  loginEmail: string = '';
+  loginPassword: string = '';
 
   constructor(
     private userService: UserService,
@@ -29,16 +51,24 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    this.userService.login(this.formLogin.value)
+    this.userService.login({email: this.loginEmail.trim(), password: this.loginPassword.trim()})
       .then(r => {
         r.user.getIdToken(true)
           .then((idToken) => {
-            this.cookies.set('token', idToken);
+            this.authData.token = idToken;
+            this.authData.validTime = new Date().getTime() + 3600 * 1000;
+            this.authData.username = r.user.email;
+            this.cookies.set('authData', JSON.stringify(this.authData));
           });
+        Notify.success('Logged in', {
+          position: 'center-bottom'
+        });
         this.router.navigate(['/main']);
       })
       .catch(e => {
-        console.log(e);
+        Notify.failure(ErrorAuthMessage.convertMessage(e.code), {
+          position: 'center-bottom'
+        });
       })
   }
 
@@ -56,12 +86,20 @@ export class LoginComponent implements OnInit {
 
         r.user.getIdToken(true)
           .then((idToken) => {
-            this.cookies.set('token', idToken);
+            this.authData.token = idToken;
+            this.authData.validTime = new Date().getTime() + 3600 * 1000;
+            this.authData.username = r.user.email;
+            this.cookies.set('authData', JSON.stringify(this.authData));
           });
+        Notify.success('Logged in', {
+          position: 'center-bottom'
+        });
         this.router.navigate(['/main']);
       })
       .catch(e => {
-        console.log(e);
+        Notify.failure(ErrorAuthMessage.convertMessage(e.code), {
+          position: 'center-bottom'
+        });
       })
   }
 }
