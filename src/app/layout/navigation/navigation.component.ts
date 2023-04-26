@@ -8,12 +8,13 @@ import {Router} from "@angular/router";
   styleUrls: ['./navigation.component.css']
 })
 export class NavigationComponent implements OnInit {
-
   constructor(
     private userService: UserService,
     private router: Router,
   ) {
   }
+
+  isShowDivIf = false;
 
   ngOnInit(): void {
   }
@@ -31,5 +32,15 @@ export class NavigationComponent implements OnInit {
       .catch(e => {
         console.log(e);
       })
+  }
+
+  toggleDisplayDivIf() {
+    this.isShowDivIf = !this.isShowDivIf;
+  }
+
+  toggleLink() {
+    if (this.isShowDivIf) {
+      this.isShowDivIf = false;
+    }
   }
 }

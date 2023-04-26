@@ -13,12 +13,23 @@ import {getAuth, provideAuth} from '@angular/fire/auth';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {MatButtonModule} from "@angular/material/button";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
+import {MatIconModule} from "@angular/material/icon";
+import {ReactiveFormsModule} from "@angular/forms";
+import { UniversityComponent } from './components/university/university.component';
+import {MatCardModule} from "@angular/material/card";
+import { UniversityDetailsComponent } from './components/university/university-details/university-details.component';
+import { FooterComponent } from './layout/footer/footer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavigationComponent,
     SkeletonComponent,
+    UniversityComponent,
+    UniversityDetailsComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
@@ -30,6 +41,11 @@ import {MatButtonModule} from "@angular/material/button";
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     MatButtonModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    MatCardModule,
   ],
   providers: [
     {

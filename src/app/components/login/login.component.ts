@@ -60,14 +60,24 @@ export class LoginComponent implements OnInit {
             this.authData.username = r.user.email;
             this.cookies.set('authData', JSON.stringify(this.authData));
           });
-        Notify.success('Logged in', {
-          position: 'center-bottom'
+        Notify.success('Has iniciado sesión correctamente', {
+          position: 'center-top',
+          distance: '4px',
+          success: {
+            background: '#0D9488',
+            notiflixIconColor: '#ffffff',
+          },
         });
         this.router.navigate(['/main']);
       })
       .catch(e => {
         Notify.failure(ErrorAuthMessage.convertMessage(e.code), {
-          position: 'center-bottom'
+          position: 'center-top',
+          distance: '4px',
+          failure: {
+            background: '#B91C1B',
+            notiflixIconColor: '#ffffff',
+          },
         });
       })
   }
@@ -91,14 +101,24 @@ export class LoginComponent implements OnInit {
             this.authData.username = r.user.email;
             this.cookies.set('authData', JSON.stringify(this.authData));
           });
-        Notify.success('Logged in', {
-          position: 'center-bottom'
+        Notify.success('Has iniciado sesión correctamente', {
+          position: 'center-top',
+          distance: '4px',
+          success: {
+            background: '#0D9488',
+            notiflixIconColor: '#ffffff',
+          },
         });
         this.router.navigate(['/main']);
       })
       .catch(e => {
         Notify.failure(ErrorAuthMessage.convertMessage(e.code), {
-          position: 'center-bottom'
+          position: 'center-top',
+          distance: '4px',
+          failure: {
+            background: '#B91C1B',
+            notiflixIconColor: '#ffffff',
+          },
         });
       })
   }

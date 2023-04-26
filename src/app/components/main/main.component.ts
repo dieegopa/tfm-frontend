@@ -19,7 +19,10 @@ export class MainComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    Loading.pulse();
+    Loading.pulse('', {
+      backgroundColor: 'rgba(0,0,0,0.3)',
+      svgColor: '#1F2937',
+    });
     setTimeout(() => {
       try {
         this.exampleService.accessDashboard().subscribe(

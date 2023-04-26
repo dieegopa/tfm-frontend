@@ -5,6 +5,8 @@ import {RegisterComponent} from "../../components/register/register.component";
 import {LoginComponent} from "../../components/login/login.component";
 import {MainComponent} from "../../components/main/main.component";
 import {canActivate, redirectLoggedInTo, redirectUnauthorizedTo} from "@angular/fire/auth-guard";
+import {UniversityComponent} from "../../components/university/university.component";
+import {UniversityDetailsComponent} from "../../components/university/university-details/university-details.component";
 
 const routes: Routes = [
   {
@@ -26,6 +28,14 @@ const routes: Routes = [
     component: MainComponent,
     ...canActivate(() => redirectUnauthorizedTo(['/login'])),
   },
+  {
+    path: 'university',
+    component: UniversityComponent,
+  },
+  {
+    path: 'university/:slug',
+    component: UniversityDetailsComponent,
+  }
 ];
 
 @NgModule({

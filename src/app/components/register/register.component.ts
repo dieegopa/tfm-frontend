@@ -41,8 +41,13 @@ export class RegisterComponent implements OnInit {
         this.userService.registerBackend(user).subscribe(
           r => {
             if (r.status == 200) {
-              Notify.success('Register Ok', {
-                position: 'center-bottom'
+              Notify.success('Usuario registrado correctamente', {
+                position: 'center-top',
+                distance: '4px',
+                success: {
+                  background: '#0D9488',
+                  notiflixIconColor: '#ffffff',
+                },
               });
               this.router.navigate(['/login']);
             }
@@ -51,26 +56,31 @@ export class RegisterComponent implements OnInit {
       })
       .catch(e => {
         Notify.failure(ErrorAuthMessage.convertMessage(e.code), {
-          position: 'center-bottom'
+          position: 'center-top',
+          distance: '4px',
+          failure: {
+            background: '#B91C1B',
+            notiflixIconColor: '#ffffff',
+          },
         });
       })
   }
 
   getErrorMessage() {
     if (this.email.hasError('required')) {
-      return 'You must enter a value';
+      return 'Debes ingresar un email';
     }
 
-    return this.email.hasError('email') ? 'Not a valid email' : '';
+    return this.email.hasError('email') ? 'Debes ingresar un email válido' : '';
 
   }
 
   getErrorMessagePassword() {
     if (this.password.hasError('required')) {
-      return 'You must enter a password';
+      return 'Debes ingresar una contraseña';
     }
 
-    return this.password.hasError('minlength') ? 'Password must be at least 6 characters' : '';
+    return this.password.hasError('minlength') ? 'La contraseña debe tener al menos 6 caracteres' : '';
   }
 
   verifyDisabled() {

@@ -5,13 +5,14 @@ import {
   GoogleAuthProvider,
   signInWithEmailAndPassword,
   signInWithPopup,
-  signOut
+  signOut,
 } from "@angular/fire/auth";
 import {HttpClient} from "@angular/common/http";
 import {User} from "../../shared/models/user.model";
 import {environment} from "../../../environments/environment";
 import {CookieService} from "ngx-cookie-service";
 import {Router} from "@angular/router";
+import {Notify} from "notiflix/build/notiflix-notify-aio";
 
 @Injectable({
   providedIn: 'root'
@@ -40,6 +41,14 @@ export class UserService {
 
   logout() {
     this.cookies.delete('authData');
+    Notify.success('Has cerrado sesión correctamente', {
+      position: 'center-top',
+      distance: '4px',
+      success: {
+        background: '#0D9488',
+        notiflixIconColor: '#ffffff',
+      },
+    });
     return signOut(this.auth)
   }
 
