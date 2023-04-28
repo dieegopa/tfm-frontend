@@ -2,25 +2,25 @@ export namespace ErrorAuthMessage {
   export function convertMessage(code: string): string {
     switch (code) {
       case 'auth/user-disabled': {
-        return 'Sorry your user is disabled.';
+        return 'EL usuario está deshabilitado.';
       }
       case 'auth/user-not-found': {
-        return 'Sorry user not found.';
+        return 'El usuario no existe.';
       }
       case 'auth/invalid-email': {
-        return 'Sorry invalid email.';
+        return 'Email inválido.';
       }
       case 'auth/email-already-in-use' : {
-        return 'Sorry email already in use.';
+        return 'El email ya está en uso.';
       }
       case 'auth/wrong-password': {
-        return 'Sorry wrong password.';
+        return 'Contraseña incorrecta.';
       }
       case 'auth/weak-password': {
-        return 'Sorry weak password.';
+        return 'Contraseña débil.';
       }
       default: {
-        return 'Login error try again later.';
+        return 'Error, inténtelo de nuevo más tarde.';
       }
     }
   }
