@@ -21,6 +21,11 @@ import { UniversityComponent } from './components/university/university.componen
 import {MatCardModule} from "@angular/material/card";
 import { UniversityDetailsComponent } from './components/university/university-details/university-details.component';
 import { FooterComponent } from './layout/footer/footer.component';
+import { DegreeComponent } from './components/degree/degree.component';
+import {MatTableModule} from "@angular/material/table";
+import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatSelectModule} from "@angular/material/select";
+import { SubjectComponent } from './components/subject/subject.component';
 
 @NgModule({
   declarations: [
@@ -30,23 +35,28 @@ import { FooterComponent } from './layout/footer/footer.component';
     UniversityComponent,
     UniversityDetailsComponent,
     FooterComponent,
+    DegreeComponent,
+    SubjectComponent,
   ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    AppRoutingModule,
-    NgbModule,
-    HttpClientModule,
-    FontAwesomeModule,
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideAuth(() => getAuth()),
-    MatButtonModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatInputModule,
-    ReactiveFormsModule,
-    MatCardModule,
-  ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        AppRoutingModule,
+        NgbModule,
+        HttpClientModule,
+        FontAwesomeModule,
+        provideFirebaseApp(() => initializeApp(environment.firebase)),
+        provideAuth(() => getAuth()),
+        MatButtonModule,
+        MatFormFieldModule,
+        MatIconModule,
+        MatInputModule,
+        ReactiveFormsModule,
+        MatCardModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatSelectModule,
+    ],
   providers: [
     {
       provide: LocationStrategy,

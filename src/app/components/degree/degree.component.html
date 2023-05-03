@@ -1,0 +1,70 @@
+<div class="container bg-white px-0 py-3 h-screen">
+  <div class="flex space-x-1 items-center border-b-2 border-b-gray-100 px-3 pb-3 justify-between">
+    <div>
+      <button type="button" (click)="return()">
+        <mat-icon class="text-gray-400 hover:text-black transition-all ease-in-out fill-red-400">arrow_back</mat-icon>
+      </button>
+    </div>
+    <div class="flex items-center justify-center flex-1">
+      <img src="{{university.image_url}}"
+           class="img-fluid h-16 mr-4"/>
+      <div class="flex flex-col items-center">
+        <h2 class="m-0 p-0 fw-bold text-center">{{degree.name}}</h2>
+        <p class="text-sm text-gray-400 text-center m-0">Titulaciones</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="w-full px-3 flex justify-content-between">
+    <mat-form-field class="w-2/3">
+      <mat-label>Buscar</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Asignatura" #input>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-select placeholder="Curso" (selectionChange)="onChange($event)">
+        <mat-option value="1">1º</mat-option>
+        <mat-option value="2">2º</mat-option>
+        <mat-option value="3">3º</mat-option>
+        <mat-option value="4">4º</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+
+  <table mat-table [dataSource]="dataSource" class="w-full">
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef class="text-left"> Asigntura </th>
+      <td mat-cell *matCellDef="let element" class="text-left"> {{element.name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="course" class="hidden md:block text-center">
+      <th mat-header-cell *matHeaderCellDef class="text-center hidden md:table-cell text-center"> Curso</th>
+      <td mat-cell *matCellDef="let element" class="hidden md:table-cell text-center"> {{element.course}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="favorite">
+      <th mat-header-cell *matHeaderCellDef> </th>
+      <td mat-cell *matCellDef="let element" class="text-center">
+        <button type="button" (click)="addFavoriteSubject()" class="text-center rounded-full border-2 border-gray-100 flex justify-center items-center" (click)="$event.stopPropagation()" >
+          <mat-icon class="text-gray-400 hover:text-amber-400 transition-all ease-in-out">{{starName}}
+          </mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="getRecord(row)"
+        class="hover:bg-gray-100 hover:cursor-pointer z-0"></tr>
+
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[10, 20, 30]"
+                 showFirstLastButtons
+                 aria-label="Select page of periodic elements">
+  </mat-paginator>
+
+</div>
+
+

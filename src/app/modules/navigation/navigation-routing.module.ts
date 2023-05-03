@@ -7,6 +7,7 @@ import {MainComponent} from "../../components/main/main.component";
 import {canActivate, redirectLoggedInTo, redirectUnauthorizedTo} from "@angular/fire/auth-guard";
 import {UniversityComponent} from "../../components/university/university.component";
 import {UniversityDetailsComponent} from "../../components/university/university-details/university-details.component";
+import {DegreeComponent} from "../../components/degree/degree.component";
 
 const routes: Routes = [
   {
@@ -35,6 +36,14 @@ const routes: Routes = [
   {
     path: 'university/:slug',
     component: UniversityDetailsComponent,
+  },
+  {
+    path: ':university/:degree',
+    component: DegreeComponent,
+  },
+  {
+    path: ':university/subject/:subject',
+    component: HomeComponent,
   }
 ];
 
