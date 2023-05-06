@@ -3,22 +3,22 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 import {CookieService} from "ngx-cookie-service";
 import {map} from "rxjs";
-import {Degree} from "../../shared/models/degree.model";
+import {Course} from "../../shared/models/course.model";
 
 @Injectable({
   providedIn: 'root'
 })
-export class DegreeService {
+export class CourseService {
   constructor(
     private http: HttpClient,
     private cookies: CookieService,
   ) {
   }
 
-  getUniversityDegree(universitySlug: string | undefined, degreeSlug: string | undefined) {
-    return this.http.get<Degree[]>(
-      environment.backendUrl + '/free/degrees/' + universitySlug + '/' + degreeSlug,
-      { observe: 'response'}
+  getDegreeCourses(degreeSlug: string | undefined) {
+    return this.http.get<Course[]>(
+      environment.backendUrl + '/free/courses/' + degreeSlug,
+      {observe: 'response'}
     ).pipe(
       map(response => {
         return response.body;

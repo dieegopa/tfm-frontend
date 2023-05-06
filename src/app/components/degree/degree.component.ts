@@ -6,6 +6,7 @@ import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
 import {UserService} from "../../data/services/user.service";
 import {DegreeService} from "../../data/services/degree.service";
+import {CourseService} from "../../data/services/course.service";
 
 @Component({
   selector: 'app-degree',
@@ -24,12 +25,14 @@ export class DegreeComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   starName: string = 'star_border';
   favorite: boolean = false;
+  courses: any[] = [];
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private userService: UserService,
     private degreeService: DegreeService,
+    private courseService: CourseService,
   ) {
     this.route.url.subscribe((url) => {
       this.universitySlug = url[0].path;
@@ -37,6 +40,7 @@ export class DegreeComponent implements OnInit, AfterViewInit {
     });
 
     this.setData()
+    this.setCourseData()
   }
 
   ngOnInit(): void {
@@ -81,7 +85,7 @@ export class DegreeComponent implements OnInit, AfterViewInit {
       return data.courseNumber == filter;
     }
 
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.dataSource.filter = filterValue;
   }
 
   setData() {
@@ -89,7 +93,6 @@ export class DegreeComponent implements OnInit, AfterViewInit {
       .subscribe(data => {
         data?.map((degree) => {
           this.degree = degree;
-
           degree.subject.map((subject) => {
             this.dataSourceArray.push({
               id: subject.id,
@@ -104,7 +107,17 @@ export class DegreeComponent implements OnInit, AfterViewInit {
           this.dataSource = new MatTableDataSource<any>(this.dataSourceArray);
         })
       })
+  }
 
-
+  setCourseData() {
+    this.courseService.getDegreeCourses(this.degreeSlug)
+      .subscribe(data => {
+        data?.map((course) => {
+          this.courses.push({
+            number: course.id,
+            name: course.name,
+          })
+        })
+      })
   }
 }

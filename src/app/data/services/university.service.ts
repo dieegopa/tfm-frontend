@@ -24,8 +24,8 @@ export class UniversityService {
 
   getUniversities() {
     return this.http.get<University[]>(
-      environment.backendUrl + '/universities',
-      {headers: this.getHeaders(), observe: 'response'}
+      environment.backendUrl + '/free/universities',
+      {observe: 'response'}
     ).pipe(
       map(response => {
         return response.body;
@@ -35,8 +35,8 @@ export class UniversityService {
 
   getFilteredUniversity(query: string) {
     return this.http.get<University[]>(
-      environment.backendUrl + '/universities?search=' + query,
-      {headers: this.getHeaders(), observe: 'response'}
+      environment.backendUrl + '/free/universities?search=' + query,
+      {observe: 'response'}
     ).pipe(
       map(response => {
         return response.body;
@@ -47,8 +47,8 @@ export class UniversityService {
 
   getUniversityDegrees(universitySlug: string) {
     return this.http.get<University>(
-      environment.backendUrl + '/universities/' + universitySlug,
-      {headers: this.getHeaders(), observe: 'response'}
+      environment.backendUrl + '/free/universities/' + universitySlug,
+      {observe: 'response'}
     ).pipe(
       map(response => {
         return response.body;

@@ -28,18 +28,7 @@ export class UniversityComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    Loading.pulse('', {
-      backgroundColor: 'rgba(0,0,0,0.3)',
-      svgColor: '#1F2937',
-    });
-    setTimeout(() => {
-      try {
-        this.setUniversities();
-      } catch (e) {
-      }
-
-      Loading.remove();
-    }, 1000);
+    this.setUniversities();
   }
 
   onSubmit() {

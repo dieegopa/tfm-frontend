@@ -32,6 +32,7 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
 import { DndDirective } from './dnd.directive';
 import { ProgressComponent } from './components/progress/progress.component';
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import {RouterExtService} from "./data/services/router.service";
 
 @NgModule({
   declarations: [
