@@ -3,10 +3,11 @@ import {Degree} from "../models/degree.model";
 import {Subject} from "../models/subject";
 import {Course} from "../models/course.model";
 import {File} from "../models/file.model";
+import {Category} from "../models/category.enum";
 
 export const files: File [] = [
-  new File(1, 'Practica 1', 'Apuntes', 'pdf', null),
-  new File(2, 'Practica 2', 'Apuntes', 'pdf', null),
+  new File(1, 'Practica 1', Category.NOTES, 'pdf', null, null),
+  new File(2, 'Practica 2', Category.EXAMS, 'pdf', null, null),
 ]
 
 export const courses: Course [] = [
