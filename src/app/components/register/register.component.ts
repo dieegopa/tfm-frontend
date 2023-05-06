@@ -4,7 +4,7 @@ import {UserService} from "../../data/services/user.service";
 import {Router} from "@angular/router";
 import {User} from "../../shared/models/user.model";
 import {Notify} from 'notiflix/build/notiflix-notify-aio';
-import {ErrorAuthMessage} from "../../shared/models/ErrorAuthMessage";
+import {ErrorAuthMessage} from "../../shared/models/errorauth.model";
 
 @Component({
   selector: 'app-register',

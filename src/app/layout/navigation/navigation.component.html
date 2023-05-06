@@ -1,5 +1,5 @@
 <header>
-  <nav class="bg-gray-800 transition-all ease-in-out">
+  <nav class="bg-gray-800 transition-all ease-in-out" *ngIf="!isLogged()">
     <div class="mx-auto px-10 sm:px-6 lg:px-8">
       <div class="relative flex h-16 items-center justify-between">
         <div class="absolute z-0 inset-y-0 left-0 flex items-center lg:hidden justify-between w-full">
@@ -54,8 +54,6 @@
               <a routerLink="/university" routerLinkActive="active-link"
                  class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
                  aria-current="page">Universidades</a>
-              <a routerLink="/main" routerLinkActive="active-link"
-                 class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Main</a>
             </div>
           </div>
         </div>
@@ -63,21 +61,10 @@
           class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0 hidden lg:block">
           <div class="flex space-x-3 justify-content-end">
             <a mat-raised-button color="primary" class="!rounded-md !bg-teal-900" routerLink="/register"
-               *ngIf="!isLogged()"
             >Registro</a>
             <a mat-raised-button class="!rounded-md hover:text-black hover:bg-gray-100 transition-all ease-in-out "
-               routerLink="/login" *ngIf="!isLogged()">
+               routerLink="/login">
               Login
-            </a>
-          </div>
-
-          <div *ngIf="isLogged()" class="flex space-x-3 justify-content-end items-center">
-            <a
-              mat-raised-button color="warn"
-              class="!rounded-md !bg-red-700"
-              (click)="logout()"
-            >
-              Logout
             </a>
           </div>
         </div>
@@ -91,27 +78,127 @@
         <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
 
         <a (click)=toggleLink() routerLink="/university" routerLinkActive="active-link"
-           class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
+           class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-sm font-medium"
            aria-current="page">Universidades</a>
-        <a (click)=toggleLink() routerLink="/main"
-           routerLinkActive="active-link"
-           class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Main</a>
       </div>
       <div
         class="flex items-center block w-full">
         <div class="flex space-y-3 justify-center flex-col w-full px-2 mb-3 {{!isLogged() ? 'block' : 'hidden'}}">
           <a (click)=toggleLink() mat-raised-button color="primary" class="!rounded-md !bg-teal-900"
              routerLink="/register"
-             *ngIf="!isLogged()"
           >Registro</a>
           <a (click)=toggleLink() mat-raised-button
              class="!rounded-md hover:text-black hover:bg-gray-100 transition-all ease-in-out "
-             routerLink="/login" *ngIf="!isLogged()">
+             routerLink="/login">
             Login
           </a>
         </div>
+      </div>
+    </div>
+  </nav>
 
-        <div *ngIf="isLogged()" class="flex justify-center items-center w-full mb-3 px-2">
+  <nav class="bg-gray-800 transition-all ease-in-out" *ngIf="isLogged()">
+    <div class="mx-auto px-10 sm:px-6 lg:px-8">
+      <div class="relative flex h-16 items-center justify-between">
+        <div class="absolute z-0 inset-y-0 left-0 flex items-center lg:hidden justify-between w-full">
+          <a
+            (click)=toggleLink()
+            routerLink="/"
+            class="h-8 w-auto block z-30 inline-flex"
+          >
+            <img src="./assets/favicon.png" class="z-30 h-8 w-auto block inline-flex">
+          </a>
+          <!-- Mobile menu button-->
+          <button
+            (click)=toggleDisplayDivIf()
+            type="button"
+            class="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+            aria-controls="mobile-menu" aria-expanded="false">
+            <span class="sr-only">Open main menu</span>
+            <!--
+              Icon when menu is closed.
+
+              Menu open: "hidden", Menu closed: "block"
+            -->
+            <svg class="block h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                 aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/>
+            </svg>
+            <!--
+              Icon when menu is open.
+
+              Menu open: "block", Menu closed: "hidden"
+            -->
+            <svg class="hidden h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                 aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+        <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+          <div class="flex flex-shrink-0 items-center">
+
+            <a
+              routerLink="/"
+              class="hidden h-8 w-auto lg:block"
+            >
+              <img src="./assets/favicon.png" class="hidden h-8 w-auto lg:block">
+            </a>
+
+          </div>
+          <div class="hidden sm:ml-6 lg:block">
+            <div class="flex space-x-4">
+              <a (click)=toggleLink() routerLink="/university" routerLinkActive="active-link"
+                 class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-sm font-medium"
+                 aria-current="page">Universidades</a>
+              <a routerLink="/main" routerLinkActive="active-link"
+                 class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                 aria-current="page">Inicio</a>
+            </div>
+          </div>
+        </div>
+        <div
+          class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0 hidden lg:block">
+          <div class="flex space-x-3 justify-content-end items-center">
+            <div>
+              <button mat-raised-button class="!flex justify-center items-center rounded-md" (click)="uploadFile()">
+                <mat-icon>add</mat-icon>
+                Publicar
+              </button>
+            </div>
+            <div class="flex space-x-3 justify-content-end items-center">
+              <a
+                mat-raised-button color="warn"
+                class="!rounded-md !bg-red-700"
+                (click)="logout()"
+              >
+                Logout
+              </a>
+            </div>
+            <div>
+              <a routerLink="/profile"
+                 class="flex text-white border-2 block rounded-md justify-center items-center p-1 hover:scale-110 transition-all ease-in-out">
+                <mat-icon class="hover:text-gray-100">person</mat-icon>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile menu, show/hide based on menu state. -->
+    <div class="hidden transition-all ease-in-out" id="mobile-menu"
+         [ngClass]="isShowDivIf ? 'responsive__active' : 'responsive__inactive'">
+      <div class="space-y-1 px-2 pb-3 pt-2">
+        <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+
+        <a (click)=toggleLink() routerLink="/main" routerLinkActive="active-link"
+           class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-sm font-medium"
+           aria-current="page">Inicio</a>
+      </div>
+      <div
+        class="flex items-center block w-full">
+        <div class="flex justify-center items-center w-full mb-3 px-2">
           <a (click)=toggleLink()
              mat-raised-button color="warn"
              class="!rounded-md !bg-red-700 w-full"

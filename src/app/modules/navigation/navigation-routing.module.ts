@@ -8,6 +8,7 @@ import {canActivate, redirectLoggedInTo, redirectUnauthorizedTo} from "@angular/
 import {UniversityComponent} from "../../components/university/university.component";
 import {UniversityDetailsComponent} from "../../components/university/university-details/university-details.component";
 import {DegreeComponent} from "../../components/degree/degree.component";
+import {SubjectComponent} from "../../components/subject/subject.component";
 
 const routes: Routes = [
   {
@@ -43,7 +44,7 @@ const routes: Routes = [
   },
   {
     path: ':university/subject/:subject',
-    component: HomeComponent,
+    component: SubjectComponent,
   }
 ];
 

@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from "../../data/services/user.service";
 import {Router} from "@angular/router";
+import {MatDialog} from "@angular/material/dialog";
+import {UploadFileDialogComponent} from "../../components/upload-file-dialog/upload-file-dialog.component";
 
 @Component({
   selector: 'app-navigation',
@@ -11,6 +13,7 @@ export class NavigationComponent implements OnInit {
   constructor(
     private userService: UserService,
     private router: Router,
+    private dialog: MatDialog,
   ) {
   }
 
@@ -20,6 +23,7 @@ export class NavigationComponent implements OnInit {
   }
 
   isLogged() {
+    //return true;
     return this.userService.isLogged();
   }
 
@@ -43,4 +47,10 @@ export class NavigationComponent implements OnInit {
       this.isShowDivIf = false;
     }
   }
+
+  uploadFile() {
+    this.dialog.open(UploadFileDialogComponent);
+  }
+
+
 }

@@ -17,15 +17,21 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatIconModule} from "@angular/material/icon";
 import {ReactiveFormsModule} from "@angular/forms";
-import { UniversityComponent } from './components/university/university.component';
+import {UniversityComponent} from './components/university/university.component';
 import {MatCardModule} from "@angular/material/card";
-import { UniversityDetailsComponent } from './components/university/university-details/university-details.component';
-import { FooterComponent } from './layout/footer/footer.component';
-import { DegreeComponent } from './components/degree/degree.component';
+import {UniversityDetailsComponent} from './components/university/university-details/university-details.component';
+import {FooterComponent} from './layout/footer/footer.component';
+import {DegreeComponent} from './components/degree/degree.component';
 import {MatTableModule} from "@angular/material/table";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatSelectModule} from "@angular/material/select";
-import { SubjectComponent } from './components/subject/subject.component';
+import {SubjectComponent} from './components/subject/subject.component';
+import {UploadFileDialogComponent} from './components/upload-file-dialog/upload-file-dialog.component';
+import {MatDialogModule} from "@angular/material/dialog";
+import {MatCheckboxModule} from "@angular/material/checkbox";
+import { DndDirective } from './dnd.directive';
+import { ProgressComponent } from './components/progress/progress.component';
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
 
 @NgModule({
   declarations: [
@@ -37,26 +43,32 @@ import { SubjectComponent } from './components/subject/subject.component';
     FooterComponent,
     DegreeComponent,
     SubjectComponent,
+    UploadFileDialogComponent,
+    DndDirective,
+    ProgressComponent,
   ],
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        AppRoutingModule,
-        NgbModule,
-        HttpClientModule,
-        FontAwesomeModule,
-        provideFirebaseApp(() => initializeApp(environment.firebase)),
-        provideAuth(() => getAuth()),
-        MatButtonModule,
-        MatFormFieldModule,
-        MatIconModule,
-        MatInputModule,
-        ReactiveFormsModule,
-        MatCardModule,
-        MatTableModule,
-        MatPaginatorModule,
-        MatSelectModule,
-    ],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    AppRoutingModule,
+    NgbModule,
+    HttpClientModule,
+    FontAwesomeModule,
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideAuth(() => getAuth()),
+    MatButtonModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    MatCardModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSelectModule,
+    MatDialogModule,
+    MatCheckboxModule,
+    MatAutocompleteModule,
+  ],
   providers: [
     {
       provide: LocationStrategy,

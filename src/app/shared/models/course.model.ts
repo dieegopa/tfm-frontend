@@ -1,4 +1,4 @@
-import {Subject} from "./Subject";
+import {Subject} from "./subject";
 import {Degree} from "./degree.model";
 
 export class Course {

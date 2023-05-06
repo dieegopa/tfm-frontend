@@ -5,7 +5,7 @@ import {Router} from "@angular/router";
 import {CookieService} from "ngx-cookie-service";
 import {faGoogle} from "@fortawesome/free-brands-svg-icons";
 import {Notify} from 'notiflix/build/notiflix-notify-aio';
-import {ErrorAuthMessage} from "../../shared/models/ErrorAuthMessage";
+import {ErrorAuthMessage} from "../../shared/models/errorauth.model";
 import {User} from "../../shared/models/user.model";
 
 @Component({

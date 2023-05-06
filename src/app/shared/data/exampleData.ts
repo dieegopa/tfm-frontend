@@ -1,23 +1,29 @@
 import {University} from "../models/university.model";
 import {Degree} from "../models/degree.model";
-import {Subject} from "../models/Subject";
+import {Subject} from "../models/subject";
 import {Course} from "../models/course.model";
+import {File} from "../models/file.model";
+
+export const files: File [] = [
+  new File(1, 'Practica 1', 'Apuntes', 'pdf', null),
+  new File(2, 'Practica 2', 'Apuntes', 'pdf', null),
+]
 
 export const courses: Course [] = [
   new Course(1, '1 Grado en Ingenieria Informatica', '1-ingenieria-informatica', [], null, 1),
 ]
 
 export const subjects: Subject [] = [
-  new Subject(1, 'Programación 1', 'program', [], [], courses[0]),
-  new Subject(2, 'Programación 2', 'program2', [], [], courses[0]),
-  new Subject(3, 'Programación 3', 'program3', [], [], courses[0]),
-  new Subject(4, 'Programación 4', 'program4', [], [], courses[0]),
-  new Subject(5, 'Programación 5', 'program4', [], [], courses[0]),
-  new Subject(6, 'Programación 6', 'program4', [], [], courses[0]),
-  new Subject(7, 'Programación 7', 'program4', [], [], courses[0]),
-  new Subject(8, 'Programación 8', 'program4', [], [], courses[0]),
-  new Subject(9, 'Programación 9', 'program4', [], [], courses[0]),
-  new Subject(10, 'Programación 10', 'program4', [], [], courses[0]),
+  new Subject(1, 'Programación 1', 'program', [], [], courses[0], files),
+  new Subject(2, 'Programación 2', 'program2', [], [], courses[0], []),
+  new Subject(3, 'Programación 3', 'program3', [], [], courses[0], []),
+  new Subject(4, 'Programación 4', 'program4', [], [], courses[0], []),
+  new Subject(5, 'Programación 5', 'program4', [], [], courses[0], []),
+  new Subject(6, 'Programación 6', 'program4', [], [], courses[0], []),
+  new Subject(7, 'Programación 7', 'program4', [], [], courses[0], []),
+  new Subject(8, 'Programación 8', 'program4', [], [], courses[0], []),
+  new Subject(9, 'Programación 9', 'program4', [], [], courses[0], []),
+  new Subject(10, 'Programación 10', 'program4', [], [], courses[0], []),
 ]
 
 export const degrees: Degree[] = [

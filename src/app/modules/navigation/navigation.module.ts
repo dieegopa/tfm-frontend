@@ -14,6 +14,8 @@ import {MatCardModule} from "@angular/material/card";
 import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
+import {UploadFileDialogComponent} from "../../components/upload-file-dialog/upload-file-dialog.component";
+import {MatDialogModule} from "@angular/material/dialog";
 
 @NgModule({
   declarations: [
@@ -35,6 +37,7 @@ import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
     MatIconModule,
     MatButtonModule,
     FontAwesomeModule,
+    MatDialogModule,
   ],
 })
 export class NavigationModule {

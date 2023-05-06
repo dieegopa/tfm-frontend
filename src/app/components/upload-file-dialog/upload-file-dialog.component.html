@@ -1,0 +1,85 @@
+<div>
+  <h2>Subir archivos</h2>
+  <form class="dialog-form" [formGroup]="formUpload" (ngSubmit)="onSubmit()">
+    <div class="flex dialog-container">
+      <!-- Nav tabs -->
+      <div class="flex flex-col space-y-1 basis-1/3 border-r-2 border-r-gray-100 pr-2">
+        <h4>Selecciona la ubicación</h4>
+        <p>Selecciona el estudio y la asignatura</p>
+        <mat-form-field appearance="fill">
+          <mat-label>Titulación</mat-label>
+          <mat-select [formControl]="degreeControl" [(ngModel)]="degreeForm">
+            <mat-option>--Selecciona una opción--</mat-option>
+            <mat-option value="1">Máster ingenieria web</mat-option>
+            <mat-option value="1">Otro master</mat-option>
+          </mat-select>
+          <mat-error *ngIf="degreeControl.hasError('required')">Debes seleccionar una titulación</mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Asignatura</mat-label>
+          <input type="text"
+                 placeholder="Escoge una asignatura"
+                 aria-label="Asignatura"
+                 matInput
+                 [formControl]="subjectControl"
+                 [matAutocomplete]="auto"
+                 [(ngModel)]="subjectForm"
+          >
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let option of filteredOptions | async" [value]="option.name">
+              {{option.name}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </div>
+      <!-- Tab panes -->
+      <div class="flex-1 pl-2">
+        <h4>Completa la información de la subida</h4>
+        <p>Selecciona el estudio y la asignatura</p>
+        <p>Los archivos se subirán a la asignatura de manera independiente</p>
+        <div class="container" appDnd (fileDropped)="onFileDropped($event)">
+          <input type="file" #fileDropRef id="fileDropRef" multiple (change)="fileBrowseHandler($event)"/>
+          <mat-icon>file_copy</mat-icon>
+          <h3>Drag and drop file here</h3>
+          <h3>or</h3>
+          <label for="fileDropRef">Browse for file</label>
+        </div>
+        <div class="files-list h-1/2 overflow-y-scroll">
+          <div class="single-file" *ngFor="let file of files; let i = index">
+            <mat-icon> attach_file</mat-icon>
+            <div class="info">
+              <h4 class="name">
+                {{ file?.name }}
+              </h4>
+              <p class="size">
+                {{ formatBytes(file?.size) }}
+              </p>
+              <app-progress [progress]="file?.progress"></app-progress>
+              <div class="mt-2 flex space-x-2 flex-wrap">
+                <mat-form-field appearance="fill">
+                  <mat-label>Nombre</mat-label>
+                  <input matInput value="{{file?.name}}" [formControl]="fileNameControl" [(ngModel)]="fileNameForm">
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                  <mat-label>Categoría</mat-label>
+                  <mat-select [formControl]="fileCategoryControl" [(ngModel)]="fileCategoryForm">
+                    <mat-option value="option" selected >Apuntes</mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                  <mat-label>Extras</mat-label>
+                  <input matInput placeholder="Profesor, clase, grupo, etc.">
+                </mat-form-field>
+              </div>
+            </div>
+            <mat-icon class="delete" width="20px" alt="file" (click)="deleteFile(i)">delete</mat-icon>
+          </div>
+        </div>
+        <div class="flex items-center justify-content-end space-x-2 mt-5">
+          <button type="button" mat-raised-button mat-dialog-close>Cancelar</button>
+          <button type="submit" mat-raised-button class="bg-teal-700 text-white" cdkFocusInitial>Finalizar Subida</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
