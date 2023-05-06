@@ -38,6 +38,7 @@ export class DegreeComponent implements OnInit, AfterViewInit {
       return university.slug == this.universitySlug;
     })[0];
 
+    // @ts-ignore
     this.degree = this.university.degrees.filter((degree) => {
       return degree.slug == this.degreeSlug;
     })[0];

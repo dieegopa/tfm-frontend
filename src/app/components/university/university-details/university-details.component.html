@@ -6,10 +6,10 @@
       </button>
     </div>
     <div class="flex items-center justify-center flex-1">
-      <img src="{{university.image_url}}"
+      <img src="{{university?.image_url}}"
            class="img-fluid h-16 mr-4"/>
       <div class="flex flex-col items-center">
-        <h2 class="m-0 p-0 fw-bold text-center">{{university.name}}</h2>
+        <h2 class="m-0 p-0 fw-bold text-center">{{university?.name}}</h2>
         <p class="text-sm text-gray-400 text-center m-0">Universidades</p>
       </div>
     </div>
@@ -23,12 +23,12 @@
 
   <ul role="list" class="divide-y divide-gray-100 p-2">
 
-    <li *ngFor="let degree of university.degrees"
+    <li *ngFor="let degree of university?.degrees"
         class="flex justify-between gap-x-6 py-3 hover:bg-gray-100 transition-all ease-in-out px-4 border-b-gray-200">
-      <a routerLink="/{{university.slug}}/{{degree.slug}}" class="flex-1">
+      <a routerLink="/{{university?.slug}}/{{degree.slug}}" class="flex-1">
         <div class="flex gap-x-4">
           <img class="h-16 w-16 flex-none rounded-full bg-gray-50"
-               src="{{university.image_url}}"
+               src="{{university?.image_url}}"
                alt="">
           <div class="min-w-0 flex-auto">
             <p class="text-sm font-semibold leading-6 text-gray-900">{{degree.name}}</p>
