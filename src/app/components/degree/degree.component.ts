@@ -1,11 +1,11 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {University} from "../../shared/models/university.model";
-import {universities} from "../../shared/data/exampleData";
 import {Degree} from "../../shared/models/degree.model";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
 import {UserService} from "../../data/services/user.service";
+import {DegreeService} from "../../data/services/degree.service";
 
 @Component({
   selector: 'app-degree',
@@ -19,8 +19,8 @@ export class DegreeComponent implements OnInit, AfterViewInit {
   dataSource = new MatTableDataSource<any>();
   universitySlug: string | undefined;
   degreeSlug: string | undefined;
-  degree: Degree;
-  university: University;
+  degree: Degree | undefined;
+  university: University | undefined;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   starName: string = 'star_border';
   favorite: boolean = false;
@@ -29,21 +29,14 @@ export class DegreeComponent implements OnInit, AfterViewInit {
     private route: ActivatedRoute,
     private router: Router,
     private userService: UserService,
+    private degreeService: DegreeService,
   ) {
     this.route.url.subscribe((url) => {
       this.universitySlug = url[0].path;
       this.degreeSlug = url[1].path;
     });
-    this.university = universities.filter((university) => {
-      return university.slug == this.universitySlug;
-    })[0];
 
-    // @ts-ignore
-    this.degree = this.university.degrees.filter((degree) => {
-      return degree.slug == this.degreeSlug;
-    })[0];
-
-    this.formatData();
+    this.setData()
   }
 
   ngOnInit(): void {
@@ -55,22 +48,6 @@ export class DegreeComponent implements OnInit, AfterViewInit {
 
   return() {
     this.router.navigate(['/university/' + this.universitySlug]);
-  }
-
-  formatData() {
-    this.degree.subjects.map((subject) => {
-      this.dataSourceArray.push({
-        id: subject.id,
-        name: subject.name,
-        slug: subject.slug,
-        course: subject.course?.name,
-        courseNumber: subject.course?.number,
-        favorite: false,
-      });
-    });
-
-    this.dataSource = new MatTableDataSource<any>(this.dataSourceArray);
-
   }
 
   applyFilter(event: Event) {
@@ -105,5 +82,29 @@ export class DegreeComponent implements OnInit, AfterViewInit {
     }
 
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  setData() {
+    this.degreeService.getUniversityDegree(this.universitySlug, this.degreeSlug)
+      .subscribe(data => {
+        data?.map((degree) => {
+          this.degree = degree;
+
+          degree.subject.map((subject) => {
+            this.dataSourceArray.push({
+              id: subject.id,
+              name: subject.name,
+              slug: subject.slug,
+              course: subject.course?.name,
+              courseNumber: subject.course?.number,
+              favorite: false,
+            });
+          });
+
+          this.dataSource = new MatTableDataSource<any>(this.dataSourceArray);
+        })
+      })
+
+
   }
 }

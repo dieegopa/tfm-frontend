@@ -72,9 +72,7 @@ export class UniversityComponent implements OnInit {
     this.universityService.getFilteredUniversity(query)
       .subscribe(data => {
         data?.map((university: University) => {
-          this.universities.push(
-            new University(university.id, university.name, university.image_url, university.slug, university.degrees, university.users)
-          )
+          this.universities.push(university)
         })
       });
   }

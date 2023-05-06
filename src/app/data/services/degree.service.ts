@@ -15,31 +15,9 @@ export class DegreeService {
   ) {
   }
 
-  getDegrees() {
+  getUniversityDegree(universitySlug: string | undefined, degreeSlug: string | undefined) {
     return this.http.get<Degree[]>(
-      environment.backendUrl + '/degrees',
-      {headers: this.getHeaders(), observe: 'response'}
-    ).pipe(
-      map(response => {
-        return response.body;
-      })
-    );
-  }
-
-  getFilteredDegree(universitySlug: string, query: string) {
-    return this.http.get<Degree[]>(
-      environment.backendUrl + '/degrees?uni=' + universitySlug + '&search=' + query,
-      {headers: this.getHeaders(), observe: 'response'}
-    ).pipe(
-      map(response => {
-        return response.body;
-      })
-    );
-  }
-
-  getUniversityDegree(universitySlug: string) {
-    return this.http.get<Degree[]>(
-      environment.backendUrl + '/degrees?uni=' + universitySlug,
+      environment.backendUrl + '/degrees/' + universitySlug + '/' + degreeSlug,
       {headers: this.getHeaders(), observe: 'response'}
     ).pipe(
       map(response => {

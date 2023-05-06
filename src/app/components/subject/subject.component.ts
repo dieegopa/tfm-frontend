@@ -47,7 +47,7 @@ export class SubjectComponent implements OnInit, AfterViewInit {
 
     // @ts-ignore
     this.subject = this.university.degrees.map((degree) => {
-      return degree.subjects.filter((subject) => {
+      return degree.subject.filter((subject) => {
         this.degreeSlug = degree.slug;
         return subject.slug == this.subjectSlug;
       })[0];
