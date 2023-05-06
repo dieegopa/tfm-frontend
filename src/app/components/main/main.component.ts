@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from "../../data/services/user.service";
 import {Router} from "@angular/router";
-import {ExampleService} from "../../data/services/example.service";
-import {Loading} from 'notiflix/build/notiflix-loading-aio';
+import {UniversityService} from "../../data/services/university.service";
 
 @Component({
   selector: 'app-main',
@@ -14,27 +13,11 @@ export class MainComponent implements OnInit {
   constructor(
     private userService: UserService,
     private router: Router,
-    private exampleService: ExampleService,
+    private universityService: UniversityService,
   ) {
   }
 
   ngOnInit(): void {
-    Loading.pulse('', {
-      backgroundColor: 'rgba(0,0,0,0.3)',
-      svgColor: '#1F2937',
-    });
-    setTimeout(() => {
-      try {
-        this.exampleService.accessDashboard().subscribe(
-          r => {
-            console.log(r);
-          }
-        );
-      } catch (e) {
-      }
-
-      Loading.remove();
-    }, 1000);
   }
 
 }

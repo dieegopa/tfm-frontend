@@ -21,7 +21,7 @@
 
   <div class="px-4">
     <div class="mt-6 space-y-12 lg:grid lg:grid-cols-3 lg:gap-x-6 lg:space-y-0 lg:gap-y-6">
-      <a *ngFor="let university of universitiesFiltered" routerLink="/university/{{university.slug}}"
+      <a *ngFor="let university of universities" routerLink="/university/{{university.slug}}"
          class="lg:mb-0 lg:border-gray-100 lg:border-2 lg:p-0 lg:rounded-lg lg:shadow-sm lg:hover:bg-gray-200 transition-all ease-in-out lg:hover:border-gray-200">
         <div
           class="shadow-sm !lg:shadow-none group relative mb-8 lg:mb-4 border-2 border-gray-100 lg:border-0 p-2 rounded-lg hover:border-gray-200 hover:bg-gray-200 transition-all ease-in-out lg:hover:border-none lg:hover:bg-transparent h-full">
