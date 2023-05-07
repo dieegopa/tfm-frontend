@@ -12,7 +12,7 @@ import {User} from "../../shared/models/user.model";
 import {environment} from "../../../environments/environment";
 import {CookieService} from "ngx-cookie-service";
 import {Router} from "@angular/router";
-import {Notify} from "notiflix/build/notiflix-notify-aio";
+import {NotificationService} from "./notification.service";
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +24,7 @@ export class UserService {
     private http: HttpClient,
     private cookies: CookieService,
     private router: Router,
+    private notificationService: NotificationService,
   ) {
   }
 
@@ -41,14 +42,7 @@ export class UserService {
 
   logout() {
     this.cookies.delete('authData');
-    Notify.success('Has cerrado sesión correctamente', {
-      position: 'center-top',
-      distance: '4px',
-      success: {
-        background: '#0D9488',
-        notiflixIconColor: '#ffffff',
-      },
-    });
+    this.notificationService.showSuccesNotification('Has cerrado sesión correctamente');
     return signOut(this.auth)
   }
 
@@ -78,8 +72,8 @@ export class UserService {
     return false;
   }
 
-  getUserSub(){
-    if(this.cookies.get('authData')){
+  getUserSub() {
+    if (this.cookies.get('authData')) {
       const cookieData = JSON.parse(this.cookies.get('authData'));
       return cookieData.userSub;
     }

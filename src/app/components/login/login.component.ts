@@ -7,6 +7,7 @@ import {faGoogle} from "@fortawesome/free-brands-svg-icons";
 import {Notify} from 'notiflix/build/notiflix-notify-aio';
 import {ErrorAuthMessage} from "../../shared/models/errorauth.model";
 import {User} from "../../shared/models/user.model";
+import {NotificationService} from "../../data/services/notification.service";
 
 @Component({
   selector: 'app-login',
@@ -42,6 +43,7 @@ export class LoginComponent implements OnInit {
     private userService: UserService,
     private router: Router,
     private cookies: CookieService,
+    private notificationService: NotificationService,
   ) {
     this.formLogin = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
@@ -63,25 +65,11 @@ export class LoginComponent implements OnInit {
             this.authData.userSub = r.user.uid;
             this.cookies.set('authData', JSON.stringify(this.authData));
           });
-        Notify.success('Has iniciado sesión correctamente', {
-          position: 'center-top',
-          distance: '4px',
-          success: {
-            background: '#0D9488',
-            notiflixIconColor: '#ffffff',
-          },
-        });
+        this.notificationService.showSuccesNotification('Has iniciado sesión correctamente');
         this.router.navigate(['/main']);
       })
       .catch(e => {
-        Notify.failure(ErrorAuthMessage.convertMessage(e.code), {
-          position: 'center-top',
-          distance: '4px',
-          failure: {
-            background: '#B91C1B',
-            notiflixIconColor: '#ffffff',
-          },
-        });
+        this.notificationService.showErrorNotification(ErrorAuthMessage.convertMessage(e.code))
       })
   }
 
@@ -105,25 +93,11 @@ export class LoginComponent implements OnInit {
             this.authData.userSub = r.user.uid;
             this.cookies.set('authData', JSON.stringify(this.authData));
           });
-        Notify.success('Has iniciado sesión correctamente', {
-          position: 'center-top',
-          distance: '4px',
-          success: {
-            background: '#0D9488',
-            notiflixIconColor: '#ffffff',
-          },
-        });
+        this.notificationService.showSuccesNotification('Has iniciado sesión correctamente');
         this.router.navigate(['/main']);
       })
       .catch(e => {
-        Notify.failure(ErrorAuthMessage.convertMessage(e.code), {
-          position: 'center-top',
-          distance: '4px',
-          failure: {
-            background: '#B91C1B',
-            notiflixIconColor: '#ffffff',
-          },
-        });
+        this.notificationService.showErrorNotification(ErrorAuthMessage.convertMessage(e.code))
       })
   }
 }

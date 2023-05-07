@@ -3,8 +3,8 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {UserService} from "../../data/services/user.service";
 import {Router} from "@angular/router";
 import {User} from "../../shared/models/user.model";
-import {Notify} from 'notiflix/build/notiflix-notify-aio';
 import {ErrorAuthMessage} from "../../shared/models/errorauth.model";
+import {NotificationService} from "../../data/services/notification.service";
 
 @Component({
   selector: 'app-register',
@@ -24,6 +24,7 @@ export class RegisterComponent implements OnInit {
   constructor(
     private userService: UserService,
     private router: Router,
+    private notificationService: NotificationService,
   ) {
     this.formReg = new FormGroup({
       email: this.email,
@@ -41,28 +42,14 @@ export class RegisterComponent implements OnInit {
         this.userService.registerBackend(user).subscribe(
           r => {
             if (r.status == 200) {
-              Notify.success('Usuario registrado correctamente', {
-                position: 'center-top',
-                distance: '4px',
-                success: {
-                  background: '#0D9488',
-                  notiflixIconColor: '#ffffff',
-                },
-              });
+              this.notificationService.showSuccesNotification('Usuario registrado correctamente');
               this.router.navigate(['/login']);
             }
           }
         );
       })
       .catch(e => {
-        Notify.failure(ErrorAuthMessage.convertMessage(e.code), {
-          position: 'center-top',
-          distance: '4px',
-          failure: {
-            background: '#B91C1B',
-            notiflixIconColor: '#ffffff',
-          },
-        });
+        this.notificationService.showErrorNotification(ErrorAuthMessage.convertMessage(e.code))
       })
   }
 

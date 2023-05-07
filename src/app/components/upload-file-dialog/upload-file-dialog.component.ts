@@ -5,9 +5,8 @@ import {MatTableDataSource} from "@angular/material/table";
 import {SelectionModel} from "@angular/cdk/collections";
 import {MatPaginator} from "@angular/material/paginator";
 import {map, Observable, startWith} from "rxjs";
-import {Notify} from "notiflix/build/notiflix-notify-aio";
-import {ErrorAuthMessage} from "../../shared/models/errorauth.model";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
+import {NotificationService} from "../../data/services/notification.service";
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -50,7 +49,8 @@ export class UploadFileDialogComponent implements OnInit, AfterViewInit {
 
   constructor(
     private dialogRef: MatDialogRef<UploadFileDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private notificationService: NotificationService,
   ) {
     this.formatData();
     this.formUpload = new FormGroup({
@@ -205,24 +205,10 @@ export class UploadFileDialogComponent implements OnInit, AfterViewInit {
   onSubmit() {
     if (this.degreeForm !== '' && this.subjectForm !== '' && this.fileNameForm !== '' && this.fileCategoryForm !== '' && this.files.length > 0) {
       console.log('Formulario enviado');
-      Notify.success('Archivos subidos con exito', {
-        position: 'center-top',
-        distance: '4px',
-        success: {
-          background: '#0D9488',
-          notiflixIconColor: '#ffffff',
-        },
-      });
+      this.notificationService.showSuccesNotification('Archivos subidos con exito');
       this.dialogRef.close();
     } else {
-      Notify.failure('Debes rellenar todos los campos', {
-        position: 'center-top',
-        distance: '4px',
-        failure: {
-          background: '#B91C1B',
-          notiflixIconColor: '#ffffff',
-        },
-      });
+      this.notificationService.showErrorNotification('Debes rellenar todos los campos')
     }
   }
 

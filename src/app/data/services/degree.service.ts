@@ -15,10 +15,17 @@ export class DegreeService {
   ) {
   }
 
+  getHeaders() {
+    const cookieData = JSON.parse(this.cookies.get('authData'));
+    return new HttpHeaders().set(
+      'Authorization', 'Bearer ' + cookieData.token
+    );
+  }
+
   getUniversityDegree(universitySlug: string | undefined, degreeSlug: string | undefined) {
     return this.http.get<Degree[]>(
       environment.backendUrl + '/free/degrees/' + universitySlug + '/' + degreeSlug,
-      { observe: 'response'}
+      {observe: 'response'}
     ).pipe(
       map(response => {
         return response.body;
@@ -26,11 +33,19 @@ export class DegreeService {
     );
   }
 
-
-  getHeaders() {
-    const cookieData = JSON.parse(this.cookies.get('authData'));
-    return new HttpHeaders().set(
-      'Authorization', 'Bearer ' + cookieData.token
+  setFavoriteDegree(degreeId: number | string, userSub: string) {
+    return this.http.post<{ favorite: boolean }>(
+      environment.backendUrl + '/api/degrees/favorite',
+      {
+        degree_id: degreeId,
+        user_sub: userSub,
+      },
+      {headers: this.getHeaders(), observe: 'response'}
+    ).pipe(
+      map(response => {
+          return response.body;
+        }
+      )
     );
   }
 }

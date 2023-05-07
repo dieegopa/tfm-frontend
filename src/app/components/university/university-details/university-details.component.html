@@ -14,7 +14,8 @@
       </div>
     </div>
     <div>
-      <button type="button" (click)="addFavorite()" class="rounded-full border-2 border-gray-100 flex justify-center items-center">
+      <button type="button" (click)="addFavorite()"
+              class="rounded-full border-2 border-gray-100 flex justify-center items-center">
         <mat-icon class="text-gray-400 hover:text-amber-400 transition-all ease-in-out fill-red-400">{{starName}}
         </mat-icon>
       </button>
@@ -37,8 +38,10 @@
         </div>
       </a>
       <div>
-        <button type="button" (click)="addFavoriteDegree()" class="rounded-full border-2 border-gray-100 flex justify-center items-center">
-          <mat-icon class="text-gray-400 hover:text-amber-400 transition-all ease-in-out">star_border
+        <button type="button" (click)="addFavoriteDegree(degree)"
+                class="rounded-full border-2 border-gray-100 flex justify-center items-center">
+          <mat-icon
+            class="text-gray-400 hover:text-amber-400 transition-all ease-in-out">{{degree.favorite ? 'star' : 'star_border'}}
           </mat-icon>
         </button>
       </div>
