@@ -55,4 +55,35 @@ export class UniversityService {
       })
     );
   }
+
+  setFavoriteUniversity(universityId: number | string, userSub: string) {
+    return this.http.post<{ favorite: boolean }>(
+      environment.backendUrl + '/api/universities/favorite',
+      {
+        university_id: universityId,
+        user_sub: userSub,
+      },
+      {headers: this.getHeaders(), observe: 'response'}
+    ).pipe(
+      map(response => {
+          return response.body;
+        }
+      )
+    );
+  }
+
+  isFavoriteUniversity(universityId: number | string, userSub: string) {
+    return this.http.get<{ favorite: boolean }>(
+      environment.backendUrl + '/api/universities/favorite/' + universityId + '/' + userSub,
+      {
+        headers: this.getHeaders(),
+        observe: 'response'
+      }
+    ).pipe(
+      map(response => {
+          return response.body;
+        }
+      )
+    );
+  }
 }

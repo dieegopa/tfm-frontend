@@ -13,7 +13,8 @@ export class UniversityDetailsComponent implements OnInit {
 
   university: University | null | undefined;
   starName: string = 'star_border';
-  favorite: boolean = false;
+  favorite: Object | null | undefined = false;
+  userSub: string = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -22,6 +23,7 @@ export class UniversityDetailsComponent implements OnInit {
     private universityService: UniversityService,
   ) {
     this.setDegrees();
+    this.userSub = this.userService.getUserSub();
   }
 
   ngOnInit(): void {
@@ -32,9 +34,11 @@ export class UniversityDetailsComponent implements OnInit {
       this.router.navigate(['/login']);
     }
 
-    this.favorite = !this.favorite;
-
-    this.starName = this.favorite ? 'star' : 'star_border';
+    this.universityService.setFavoriteUniversity(this.university?.id || '', this.userSub || '')
+      .subscribe(data => {
+        this.favorite = data?.favorite;
+        this.starName = this.favorite ? 'star' : 'star_border';
+      })
   }
 
   return() {
@@ -51,6 +55,11 @@ export class UniversityDetailsComponent implements OnInit {
     this.universityService.getUniversityDegrees(this.route.snapshot.params['slug'])
       .subscribe(data => {
         this.university = data;
+        this.universityService.isFavoriteUniversity(this.university?.id || '', this.userSub || '')
+          .subscribe(data => {
+            this.favorite = data?.favorite;
+            this.starName = this.favorite ? 'star' : 'star_border';
+          })
       })
   }
 

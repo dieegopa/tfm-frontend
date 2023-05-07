@@ -54,7 +54,7 @@ export class UserService {
 
   registerBackend(user: User) {
     return this.http.post(
-      environment.backendUrl + '/register', JSON.stringify(user),
+      environment.backendUrl + '/api/register', JSON.stringify(user),
       {observe: 'response'}
     );
   }
@@ -76,5 +76,12 @@ export class UserService {
     }
 
     return false;
+  }
+
+  getUserSub(){
+    if(this.cookies.get('authData')){
+      const cookieData = JSON.parse(this.cookies.get('authData'));
+      return cookieData.userSub;
+    }
   }
 }

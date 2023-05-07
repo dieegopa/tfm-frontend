@@ -21,10 +21,12 @@ export class LoginComponent implements OnInit {
     token: string,
     validTime: number,
     username: string | null,
+    userSub: string | null,
   } = {
     token: '',
     validTime: 0,
     username: '',
+    userSub: '',
   }
 
   formLogin: FormGroup;
@@ -58,6 +60,7 @@ export class LoginComponent implements OnInit {
             this.authData.token = idToken;
             this.authData.validTime = new Date().getTime() + 3600 * 1000;
             this.authData.username = r.user.email;
+            this.authData.userSub = r.user.uid;
             this.cookies.set('authData', JSON.stringify(this.authData));
           });
         Notify.success('Has iniciado sesión correctamente', {
@@ -99,6 +102,7 @@ export class LoginComponent implements OnInit {
             this.authData.token = idToken;
             this.authData.validTime = new Date().getTime() + 3600 * 1000;
             this.authData.username = r.user.email;
+            this.authData.userSub = r.user.uid;
             this.cookies.set('authData', JSON.stringify(this.authData));
           });
         Notify.success('Has iniciado sesión correctamente', {
