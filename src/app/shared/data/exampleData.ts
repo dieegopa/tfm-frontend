@@ -1,6 +1,6 @@
 import {University} from "../models/university.model";
 import {Degree} from "../models/degree.model";
-import {Subject} from "../models/subject";
+import {Subject} from "../models/subject.model";
 import {Course} from "../models/course.model";
 import {File} from "../models/file.model";
 import {Category} from "../models/category.enum";

@@ -27,8 +27,8 @@ export class UniversityDetailsComponent implements OnInit {
     private degreeService: DegreeService,
     private notificationService: NotificationService,
   ) {
-    this.setDegrees();
     this.userSub = this.userService.getUserSub();
+    this.setDegrees();
   }
 
   ngOnInit(): void {

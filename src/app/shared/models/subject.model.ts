@@ -11,8 +11,9 @@ export class Subject {
   users: User[];
   course: Course | null;
   files: File[];
+  favorite: boolean | undefined;
 
-  constructor(id: number, name: string, slug: string, degrees: Degree[], users: User[], course: Course | null, files: File[]) {
+  constructor(id: number, name: string, slug: string, degrees: Degree[], users: User[], course: Course | null, files: File[], favorite: boolean = false) {
     this.id = id;
     this.name = name;
     this.slug = slug;
@@ -20,5 +21,6 @@ export class Subject {
     this.users = users;
     this.course = course;
     this.files = files;
+    this.favorite = favorite;
   }
 }

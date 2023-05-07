@@ -4,7 +4,7 @@ import {University} from "../../shared/models/university.model";
 import {MatPaginator} from "@angular/material/paginator";
 import {ActivatedRoute, Router} from "@angular/router";
 import {UserService} from "../../data/services/user.service";
-import {Subject} from "../../shared/models/subject";
+import {Subject} from "../../shared/models/subject.model";
 import {File} from "../../shared/models/file.model";
 import {UploadFileDialogComponent} from "../upload-file-dialog/upload-file-dialog.component";
 import {MatDialog} from "@angular/material/dialog";

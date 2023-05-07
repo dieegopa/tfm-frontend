@@ -1,6 +1,6 @@
 import {University} from "./university.model";
 import {User} from "./user.model";
-import {Subject} from "./subject";
+import {Subject} from "./subject.model";
 import {Course} from "./course.model";
 
 export class Degree {

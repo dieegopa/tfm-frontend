@@ -7,6 +7,9 @@ import {MatPaginator} from "@angular/material/paginator";
 import {UserService} from "../../data/services/user.service";
 import {DegreeService} from "../../data/services/degree.service";
 import {CourseService} from "../../data/services/course.service";
+import {SubjectService} from "../../data/services/subject.service";
+import {Subject} from "../../shared/models/subject.model";
+import {NotificationService} from "../../data/services/notification.service";
 
 @Component({
   selector: 'app-degree',
@@ -26,6 +29,7 @@ export class DegreeComponent implements OnInit, AfterViewInit {
   starName: string = 'star_border';
   favorite: boolean = false;
   courses: any[] = [];
+  userSub: string = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -33,12 +37,15 @@ export class DegreeComponent implements OnInit, AfterViewInit {
     private userService: UserService,
     private degreeService: DegreeService,
     private courseService: CourseService,
+    private subjectService: SubjectService,
+    private notificationService: NotificationService,
   ) {
     this.route.url.subscribe((url) => {
       this.universitySlug = url[0].path;
       this.degreeSlug = url[1].path;
     });
 
+    this.userSub = this.userService.getUserSub();
     this.setData()
     this.setCourseData()
   }
@@ -68,15 +75,24 @@ export class DegreeComponent implements OnInit, AfterViewInit {
     this.router.navigate(['/' + this.universitySlug + '/subject/' + row.slug]);
   }
 
-  addFavoriteSubject() {
-
-    this.favorite = !this.favorite;
-
-    this.starName = this.favorite ? 'star' : 'star_border';
+  addFavoriteSubject(subject: Subject) {
 
     if (!this.userService.isLogged()) {
       this.router.navigate(['/login']);
+    } else {
+      this.subjectService.setFavoriteSubject(subject.id, this.userService.getUserSub())
+        .subscribe(data => {
+          subject.favorite = data?.favorite;
+
+          if (subject.favorite) {
+            this.notificationService.showSuccesNotification('Añadido a favoritos');
+          } else {
+            this.notificationService.showSuccesNotification('Eliminado de favoritos');
+          }
+        });
     }
+
+
   }
 
   onChange($event: any) {
@@ -93,6 +109,17 @@ export class DegreeComponent implements OnInit, AfterViewInit {
       .subscribe(data => {
         data?.map((degree) => {
           this.degree = degree;
+
+          if (this.userService.isLogged()) {
+            this.degree.subject.map((subject) => {
+              subject.users.map((user) => {
+                if (user.sub == this.userSub) {
+                  subject.favorite = true;
+                }
+              })
+            });
+          }
+
           degree.subject.map((subject) => {
             this.dataSourceArray.push({
               id: subject.id,
@@ -100,7 +127,7 @@ export class DegreeComponent implements OnInit, AfterViewInit {
               slug: subject.slug,
               course: subject.course?.name,
               courseNumber: subject.course?.number,
-              favorite: false,
+              favorite: subject.favorite,
             });
           });
 

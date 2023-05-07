@@ -1,5 +1,5 @@
 import {User} from "./user.model";
-import {Subject} from "./subject";
+import {Subject} from "./subject.model";
 
 export class File {
   id: number;

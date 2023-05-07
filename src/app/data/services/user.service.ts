@@ -42,6 +42,7 @@ export class UserService {
 
   logout() {
     this.cookies.delete('authData');
+    this.deleteDB();
     this.notificationService.showSuccesNotification('Has cerrado sesión correctamente');
     return signOut(this.auth)
   }
@@ -77,5 +78,14 @@ export class UserService {
       const cookieData = JSON.parse(this.cookies.get('authData'));
       return cookieData.userSub;
     }
+  }
+
+  deleteDB() {
+    window.indexedDB.databases().then((r) => {
+      for (var i = 0; i < r.length; i++) { // @ts-ignore
+        window.indexedDB.deleteDatabase(r[i].name);
+      }
+    }).then(() => {
+    });
   }
 }
