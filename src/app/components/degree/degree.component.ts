@@ -72,7 +72,7 @@ export class DegreeComponent implements OnInit, AfterViewInit {
   }
 
   getRecord(row: any) {
-    this.router.navigate(['/' + this.universitySlug + '/subject/' + row.slug]);
+    this.router.navigate(['/' + this.universitySlug + '/degree/' + this.degreeSlug + '/subject/' + row.slug] );
   }
 
   addFavoriteSubject(subject: Subject) {

@@ -10,8 +10,8 @@ import {UploadFileDialogComponent} from "../upload-file-dialog/upload-file-dialo
 import {MatDialog} from "@angular/material/dialog";
 import {SubjectService} from "../../data/services/subject.service";
 import {Category} from "../../shared/models/category.enum";
-import {RouterExtService} from "../../data/services/router.service";
 import {Location} from "@angular/common";
+import {Degree} from "../../shared/models/degree.model";
 
 @Component({
   selector: 'app-subject',
@@ -20,7 +20,7 @@ import {Location} from "@angular/common";
 })
 export class SubjectComponent implements OnInit, AfterViewInit {
 
-  displayedColumns: string[] = ['name', 'category', 'usuario', 'actions'];
+  displayedColumns: string[] = ['name', 'category', 'user', 'extra', 'actions'];
   dataSourceArray: any[] = [];
   dataSource = new MatTableDataSource<any>();
   universitySlug: string | undefined;
@@ -30,6 +30,7 @@ export class SubjectComponent implements OnInit, AfterViewInit {
   university: University | null | undefined;
   files: File[] | undefined;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  degree: Degree | null | undefined;
 
   constructor(
     private route: ActivatedRoute,
@@ -37,12 +38,12 @@ export class SubjectComponent implements OnInit, AfterViewInit {
     private userService: UserService,
     private dialog: MatDialog,
     private subjectService: SubjectService,
-    private routerExtService: RouterExtService,
     private location: Location,
   ) {
     this.route.url.subscribe((url) => {
       this.universitySlug = url[0].path;
-      this.subjectSlug = url[2].path;
+      this.degreeSlug = url[2].path;
+      this.subjectSlug = url[4].path;
     });
 
     this.setData();
@@ -85,7 +86,9 @@ export class SubjectComponent implements OnInit, AfterViewInit {
   uploadFile() {
     this.dialog.open(UploadFileDialogComponent, {
       data: {
-        subject: this.subjectSlug,
+        subject: this.subject?.id,
+        university: this.university?.id,
+        degree: this.degree?.id,
       },
     });
   }
@@ -94,7 +97,12 @@ export class SubjectComponent implements OnInit, AfterViewInit {
     this.subjectService.getDegreeSubjects(this.subjectSlug?.toLowerCase())
       .subscribe(data => {
         this.subject = data;
-        this.university = data?.degrees[0].university;
+        data?.degrees.map((degree) => {
+          if (degree.slug === this.degreeSlug) {
+            this.degree = degree;
+          }
+        })
+        this.university = this.degree?.university;
         this.files = data?.files;
 
         data?.files.map((file) => {
@@ -106,7 +114,9 @@ export class SubjectComponent implements OnInit, AfterViewInit {
             name: file?.name,
             category: category,
             type: file?.type,
-            user: file.user?.email
+            user: file.user?.email,
+            extra: file?.extra,
+            url: file?.url,
           });
         });
 

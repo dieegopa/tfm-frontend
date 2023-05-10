@@ -42,19 +42,24 @@
       <td mat-cell *matCellDef="let element" class="hidden md:table-cell text-center"> {{element.category}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="usuario" class="hidden md:block text-center">
+    <ng-container matColumnDef="user" class="hidden md:block text-center">
       <th mat-header-cell *matHeaderCellDef class="text-center hidden md:table-cell text-center"> Subidor</th>
       <td mat-cell *matCellDef="let element" class="hidden md:table-cell text-center"> {{element.user}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="extra" class="hidden md:block text-center">
+      <th mat-header-cell *matHeaderCellDef class="text-center hidden md:table-cell text-center"> Notas</th>
+      <td mat-cell *matCellDef="let element" class="hidden md:table-cell text-center"> {{element.extra}} </td>
     </ng-container>
 
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let element" class="text-center">
-        <button type="button" (click)="download(element.id)"
+        <a [href]="element.url" download="{{element.name}}" target="_blank"
                 (click)="$event.stopPropagation()">
           <mat-icon class="text-gray-400 hover:text-gray-700 transition-all ease-in-out">cloud_download
           </mat-icon>
-        </button>
+        </a>
       </td>
     </ng-container>
 

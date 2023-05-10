@@ -23,7 +23,7 @@
 
     <mat-form-field>
       <mat-select placeholder="Curso" (selectionChange)="onChange($event)">
-        <mat-option value="">Selecciona</mat-option>
+        <mat-option>Selecciona</mat-option>
         <mat-option *ngFor="let course of courses" [value]="course.number">{{course.name}}</mat-option>
       </mat-select>
     </mat-form-field>

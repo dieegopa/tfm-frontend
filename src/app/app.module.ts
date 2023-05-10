@@ -16,7 +16,7 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatIconModule} from "@angular/material/icon";
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {UniversityComponent} from './components/university/university.component';
 import {MatCardModule} from "@angular/material/card";
 import {UniversityDetailsComponent} from './components/university/university-details/university-details.component';
@@ -29,10 +29,11 @@ import {SubjectComponent} from './components/subject/subject.component';
 import {UploadFileDialogComponent} from './components/upload-file-dialog/upload-file-dialog.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatCheckboxModule} from "@angular/material/checkbox";
-import { DndDirective } from './dnd.directive';
-import { ProgressComponent } from './components/progress/progress.component';
+import {DndDirective} from './dnd.directive';
+import {ProgressComponent} from './components/progress/progress.component';
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
-import {RouterExtService} from "./data/services/router.service";
+import {provideStorage, getStorage} from "@angular/fire/storage";
+import { HotToastModule } from '@ngneat/hot-toast';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,9 @@ import {RouterExtService} from "./data/services/router.service";
     MatDialogModule,
     MatCheckboxModule,
     MatAutocompleteModule,
+    FormsModule,
+    provideStorage(() => getStorage()),
+    HotToastModule.forRoot(),
   ],
   providers: [
     {

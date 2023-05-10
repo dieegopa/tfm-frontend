@@ -43,7 +43,7 @@ const routes: Routes = [
     component: DegreeComponent,
   },
   {
-    path: ':university/subject/:subject',
+    path: ':university/degree/:degree/subject/:subject',
     component: SubjectComponent,
   }
 ];
