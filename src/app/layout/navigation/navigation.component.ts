@@ -30,7 +30,11 @@ export class NavigationComponent implements OnInit {
   logout() {
     this.userService.logout()
       .then(r => {
-          this.router.navigate(['/']);
+          this.router.navigate(['/']).then(() => {
+            setTimeout(() => {
+              window.location.reload();
+            }, 500);
+          })
         }
       )
       .catch(e => {

@@ -5,6 +5,7 @@ import {Router} from "@angular/router";
 import {User} from "../../shared/models/user.model";
 import {ErrorAuthMessage} from "../../shared/models/errorauth.model";
 import {NotificationService} from "../../data/services/notification.service";
+import {UserRegister} from "../../shared/models/userregister.model";
 
 @Component({
   selector: 'app-register',
@@ -38,7 +39,7 @@ export class RegisterComponent implements OnInit {
   onSubmit() {
     this.userService.register(this.formReg.value)
       .then(r => {
-        const user = new User(r.user.uid, r.user.email);
+        const user = new UserRegister(r.user.uid, r.user.email, );
         this.userService.registerBackend(user).subscribe(
           r => {
             if (r.status == 200) {

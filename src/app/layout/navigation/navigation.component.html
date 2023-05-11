@@ -106,18 +106,26 @@
         <a (click)=toggleLink() routerLink="/university" routerLinkActive="active-link"
            class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-sm font-medium"
            aria-current="page">Universidades</a>
+        <a (click)=toggleLink() routerLink="/main" routerLinkActive="active-link"
+           class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-sm font-medium"
+           aria-current="page">Inicio</a>
       </div>
       <div
         class="flex items-center block w-full">
-        <div class="flex space-y-3 justify-center flex-col w-full px-2 mb-3 {{!isLogged() ? 'block' : 'hidden'}}">
-          <a (click)=toggleLink() mat-raised-button color="primary" class="!rounded-md !bg-teal-900"
+        <div class="flex space-y-3 justify-center flex-col w-full px-2 mb-3">
+          <a (click)=toggleLink() mat-raised-button color="primary" class="!rounded-md !bg-teal-900" *ngIf="!isLogged()"
              routerLink="/register"
           >Registro</a>
           <a (click)=toggleLink() mat-raised-button
-             class="!rounded-md hover:text-black hover:bg-gray-100 transition-all ease-in-out "
+             class="!rounded-md hover:text-black hover:bg-gray-100 transition-all ease-in-out" *ngIf="!isLogged()"
              routerLink="/login">
             Login
           </a>
+          <button mat-raised-button class="!flex justify-center items-center rounded-md" (click)="uploadFile()"
+                  *ngIf="isLogged()">
+            <mat-icon>add</mat-icon>
+            Publicar
+          </button>
           <a (click)=toggleLink() *ngIf="isLogged()"
              mat-raised-button color="warn"
              class="!rounded-md !bg-red-700 w-full"

@@ -15,6 +15,11 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {MatDialogModule} from "@angular/material/dialog";
+import {MatTreeModule} from "@angular/material/tree";
+import {MatProgressBarModule} from "@angular/material/progress-bar";
+import {MatTableModule} from "@angular/material/table";
+import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatSelectModule} from "@angular/material/select";
 
 @NgModule({
   declarations: [
@@ -23,21 +28,26 @@ import {MatDialogModule} from "@angular/material/dialog";
     MainComponent,
     RegisterComponent,
   ],
-  imports: [
-    CommonModule,
-    NavigationRoutingModule,
-    FormsModule,
-    NgbModule,
-    HttpClientModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatCardModule,
-    MatIconModule,
-    MatButtonModule,
-    FontAwesomeModule,
-    MatDialogModule,
-  ],
+    imports: [
+        CommonModule,
+        NavigationRoutingModule,
+        FormsModule,
+        NgbModule,
+        HttpClientModule,
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatCardModule,
+        MatIconModule,
+        MatButtonModule,
+        FontAwesomeModule,
+        MatDialogModule,
+        MatTreeModule,
+        MatProgressBarModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatSelectModule,
+    ],
 })
 export class NavigationModule {
 }

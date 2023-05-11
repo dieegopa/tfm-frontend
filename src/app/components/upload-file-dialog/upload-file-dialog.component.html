@@ -1,7 +1,7 @@
 <div>
   <h2>Subir archivos</h2>
   <form class="dialog-form" [formGroup]="formUpload" (ngSubmit)="onSubmit()">
-    <div class="flex dialog-container">
+    <div class="flex dialog-container flex-column lg:!flex-row">
       <!-- Nav tabs -->
       <div class="flex flex-col space-y-1 basis-1/3 border-r-2 border-r-gray-100 pr-2">
         <h4>Selecciona la ubicación</h4>
@@ -85,7 +85,7 @@
             <mat-icon class="delete" width="20px" alt="file" (click)="deleteFile(i)">delete</mat-icon>
           </div>
         </div>
-        <div class="flex items-center justify-content-end space-x-2 mt-5">
+        <div class="flex items-center justify-center lg:!justify-end space-x-2 mt-0 lg:!mt-5 mb-3 lg:!mb-0">
           <button type="button" mat-raised-button mat-dialog-close>Cancelar</button>
           <button type="submit" mat-raised-button class="bg-teal-700 text-white" cdkFocusInitial>Finalizar Subida
           </button>

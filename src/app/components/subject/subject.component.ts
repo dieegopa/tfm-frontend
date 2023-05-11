@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatTableDataSource} from "@angular/material/table";
 import {University} from "../../shared/models/university.model";
 import {MatPaginator} from "@angular/material/paginator";
@@ -18,7 +18,7 @@ import {Degree} from "../../shared/models/degree.model";
   templateUrl: './subject.component.html',
   styleUrls: ['./subject.component.css']
 })
-export class SubjectComponent implements OnInit, AfterViewInit {
+export class SubjectComponent implements OnInit {
 
   displayedColumns: string[] = ['name', 'category', 'user', 'extra', 'actions'];
   dataSourceArray: any[] = [];
@@ -29,7 +29,7 @@ export class SubjectComponent implements OnInit, AfterViewInit {
   subject: Subject | null | undefined;
   university: University | null | undefined;
   files: File[] | undefined;
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
   degree: Degree | null | undefined;
 
   constructor(
@@ -53,10 +53,6 @@ export class SubjectComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
   }
 
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-  }
-
   return() {
     this.location.back();
   }
@@ -71,11 +67,19 @@ export class SubjectComponent implements OnInit, AfterViewInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  download(id: string) {
+  download(url: string, $event: MouseEvent) {
+    $event.stopPropagation();
     if (!this.isLogged()) {
       this.router.navigate(['/login']);
     } else {
-      alert('Descargando archivo con id: ' + id);
+      const a = document.createElement('a')
+      a.href = url
+      // @ts-ignore
+      a.download = url.split('/').pop()
+      a.target = '_blank';
+      document.body.appendChild(a)
+      a.click()
+      document.body.removeChild(a)
     }
   }
 
@@ -121,6 +125,9 @@ export class SubjectComponent implements OnInit, AfterViewInit {
         });
 
         this.dataSource = new MatTableDataSource<any>(this.dataSourceArray);
+
+        // @ts-ignore
+        this.dataSource.paginator = this.paginator;
 
       });
   }

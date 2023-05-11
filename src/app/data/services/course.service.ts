@@ -25,12 +25,4 @@ export class CourseService {
       })
     );
   }
-
-
-  getHeaders() {
-    const cookieData = JSON.parse(this.cookies.get('authData'));
-    return new HttpHeaders().set(
-      'Authorization', 'Bearer ' + cookieData.token
-    );
-  }
 }
