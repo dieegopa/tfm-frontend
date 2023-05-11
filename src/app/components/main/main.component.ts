@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FlatTreeControl} from "@angular/cdk/tree";
 import {MatTreeFlatDataSource, MatTreeFlattener} from "@angular/material/tree";
 import {UserService} from "../../data/services/user.service";
@@ -17,6 +17,8 @@ import {FileService} from "../../data/services/file.service";
 import {Category} from "../../shared/models/category.enum";
 import {MatDialog} from "@angular/material/dialog";
 import {MatSelect} from "@angular/material/select";
+import {Report} from "notiflix";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-main',
@@ -66,7 +68,7 @@ export class MainComponent implements OnInit {
   constructor(
     private userService: UserService,
     private fileService: FileService,
-    private dialog: MatDialog,
+    private router: Router,
   ) {
   }
 
@@ -171,7 +173,8 @@ export class MainComponent implements OnInit {
       case null:
         break;
       default:
-        this.fileService.getDifferentFiles(node.type, node.id)
+        this.fileService
+          .getDifferentFiles(node.type, node.id)
           .subscribe((files) => {
             this.selectedFiles = files;
             this.setSelectedFilesTableData(this.selectedFiles);
@@ -203,7 +206,7 @@ export class MainComponent implements OnInit {
         name: file?.name,
         category: category,
         type: file?.type,
-        user: file.user?.email,
+        user: file.user,
         extra: file?.extra,
         url: file?.url,
       });
@@ -242,6 +245,18 @@ export class MainComponent implements OnInit {
         value: key,
       });
     })
+  }
+
+  getRecord(row: any) {
+    if (!this.userService.isLogged()) {
+      Report.warning(
+        'No has iniciado sesión',
+        'Debes iniciar sesión para poder acceder a los archivos',
+        'Ok',
+      );
+    } else {
+      this.router.navigate(['/file/details/', row.id.toString()]);
+    }
   }
 
 }

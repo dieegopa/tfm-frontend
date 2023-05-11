@@ -50,4 +50,26 @@ export class FileService {
       })
     );
   }
+
+  getFile(id: string | undefined) {
+    return this.http.get<any>(
+      environment.backendUrl + '/api/files/' + id,
+      {headers: this.getHeaders(), observe: 'response'}
+    ).pipe(
+      map((response: any) => {
+        return response.body;
+      })
+    );
+  }
+
+  getFiles() {
+    return this.http.get<any []>(
+      environment.backendUrl + '/api/files',
+      {headers: this.getHeaders(), observe: 'response'}
+    ).pipe(
+      map((response: any) => {
+        return response.body;
+      })
+    );
+  }
 }

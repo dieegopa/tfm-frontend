@@ -4,9 +4,7 @@ import {UserService} from "../../data/services/user.service";
 import {Router} from "@angular/router";
 import {CookieService} from "ngx-cookie-service";
 import {faGoogle} from "@fortawesome/free-brands-svg-icons";
-import {Notify} from 'notiflix/build/notiflix-notify-aio';
 import {ErrorAuthMessage} from "../../shared/models/errorauth.model";
-import {User} from "../../shared/models/user.model";
 import {NotificationService} from "../../data/services/notification.service";
 import {UserRegister} from "../../shared/models/userregister.model";
 
@@ -56,7 +54,8 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    this.userService.login({email: this.loginEmail.trim(), password: this.loginPassword.trim()})
+    this.userService
+      .login({email: this.loginEmail.trim(), password: this.loginPassword.trim()})
       .then(r => {
         r.user.getIdToken(true)
           .then((idToken) => {
@@ -67,7 +66,11 @@ export class LoginComponent implements OnInit {
             this.cookies.set('authData', JSON.stringify(this.authData));
           });
         this.notificationService.showSuccesNotification('Has iniciado sesión correctamente');
-        this.router.navigate(['/main']);
+        this.router.navigate(['/main']).then(() => {
+          setTimeout(() => {
+            window.location.reload();
+          }, 500)
+        });
       })
       .catch(e => {
         this.notificationService.showErrorNotification(ErrorAuthMessage.convertMessage(e.code))
@@ -78,13 +81,9 @@ export class LoginComponent implements OnInit {
     this.userService.loginWithGoogle()
       .then(r => {
         const user = new UserRegister(r.user.uid, r.user.email);
-        this.userService.registerBackend(user).subscribe(
-          r => {
-            if (r.status == 200) {
-              this.router.navigate(['/main']);
-            }
-          }
-        );
+        this.userService
+          .registerBackend(user)
+          .subscribe();
 
         r.user.getIdToken(true)
           .then((idToken) => {
@@ -95,7 +94,11 @@ export class LoginComponent implements OnInit {
             this.cookies.set('authData', JSON.stringify(this.authData));
           });
         this.notificationService.showSuccesNotification('Has iniciado sesión correctamente');
-        this.router.navigate(['/main']);
+        this.router.navigate(['/main']).then(() => {
+          setTimeout(() => {
+            window.location.reload();
+          }, 500)
+        });
       })
       .catch(e => {
         this.notificationService.showErrorNotification(ErrorAuthMessage.convertMessage(e.code))

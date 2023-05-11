@@ -6,13 +6,13 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
+  sendPasswordResetEmail,
 } from "@angular/fire/auth";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {User} from "../../shared/models/user.model";
 import {environment} from "../../../environments/environment";
 import {CookieService} from "ngx-cookie-service";
 import {Router} from "@angular/router";
-import {NotificationService} from "./notification.service";
 import {map} from "rxjs";
 import {UserRegister} from "../../shared/models/userregister.model";
 
@@ -26,7 +26,6 @@ export class UserService {
     private http: HttpClient,
     private cookies: CookieService,
     private router: Router,
-    private notificationService: NotificationService,
   ) {
   }
 
@@ -49,10 +48,13 @@ export class UserService {
     return signInWithPopup(this.auth, new GoogleAuthProvider());
   }
 
+  resetPassword(email: string) {
+    return sendPasswordResetEmail(this.auth, email);
+  }
+
   logout() {
     this.cookies.delete('authData');
     this.deleteDB();
-    this.notificationService.showSuccesNotification('Has cerrado sesión correctamente');
     return signOut(this.auth)
   }
 
@@ -71,7 +73,9 @@ export class UserService {
           .then(r => {
               this.router.navigate(['/'])
                 .then(() => {
-                  window.location.reload();
+                  setTimeout(() => {
+                    window.location.reload();
+                  }, 100)
                 })
             }
           )

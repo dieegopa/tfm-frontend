@@ -86,6 +86,9 @@
 
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+              matTooltip="Ver más de este archivo"
+              matTooltipPosition="above"
+              (click)="getRecord(row)"
               class="hover:bg-gray-100 hover:cursor-pointer z-0"></tr>
 
         </table>

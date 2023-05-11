@@ -32,8 +32,16 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
 import {DndDirective} from './dnd.directive';
 import {ProgressComponent} from './components/progress/progress.component';
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
-import {provideStorage, getStorage} from "@angular/fire/storage";
-import { HotToastModule } from '@ngneat/hot-toast';
+import {getStorage, provideStorage} from "@angular/fire/storage";
+import {HotToastModule} from '@ngneat/hot-toast';
+import {MatTooltipModule} from "@angular/material/tooltip";
+import {FileComponent} from './components/file/file.component';
+import {PdfViewerModule} from "ng2-pdf-viewer";
+import {StarRatingModule} from "angular-star-rating";
+import { GeneralComponent } from './components/general/general.component';
+import {NgxDocViewerModule} from "ngx-doc-viewer";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +56,9 @@ import { HotToastModule } from '@ngneat/hot-toast';
     UploadFileDialogComponent,
     DndDirective,
     ProgressComponent,
+    FileComponent,
+    GeneralComponent,
+    ResetPasswordComponent,
   ],
   imports: [
     BrowserModule,
@@ -73,6 +84,11 @@ import { HotToastModule } from '@ngneat/hot-toast';
     FormsModule,
     provideStorage(() => getStorage()),
     HotToastModule.forRoot(),
+    MatTooltipModule,
+    PdfViewerModule,
+    StarRatingModule.forRoot(),
+    NgxDocViewerModule,
+    MatProgressSpinnerModule,
   ],
   providers: [
     {

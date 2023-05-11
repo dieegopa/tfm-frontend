@@ -12,6 +12,7 @@ import {SubjectService} from "../../data/services/subject.service";
 import {Category} from "../../shared/models/category.enum";
 import {Location} from "@angular/common";
 import {Degree} from "../../shared/models/degree.model";
+import {Report} from "notiflix";
 
 @Component({
   selector: 'app-subject',
@@ -130,6 +131,18 @@ export class SubjectComponent implements OnInit {
         this.dataSource.paginator = this.paginator;
 
       });
+  }
+
+  getRecord(row: any) {
+    if (!this.userService.isLogged()) {
+      Report.warning(
+        'No has iniciado sesión',
+        'Debes iniciar sesión para poder acceder a los archivos',
+        'Ok',
+      );
+    } else {
+      this.router.navigate(['/file/details/', row.id.toString()]);
+    }
   }
 
 }

@@ -9,6 +9,9 @@ import {UniversityComponent} from "../../components/university/university.compon
 import {UniversityDetailsComponent} from "../../components/university/university-details/university-details.component";
 import {DegreeComponent} from "../../components/degree/degree.component";
 import {SubjectComponent} from "../../components/subject/subject.component";
+import {FileComponent} from "../../components/file/file.component";
+import {GeneralComponent} from "../../components/general/general.component";
+import {ResetPasswordComponent} from "../../components/reset-password/reset-password.component";
 
 const routes: Routes = [
   {
@@ -45,6 +48,21 @@ const routes: Routes = [
   {
     path: ':university/degree/:degree/subject/:subject',
     component: SubjectComponent,
+  },
+  {
+    path: 'file/details/:id',
+    component: FileComponent,
+    ...canActivate(() => redirectUnauthorizedTo(['/login'])),
+  },
+  {
+    path: 'general',
+    component: GeneralComponent,
+    ...canActivate(() => redirectUnauthorizedTo(['/login'])),
+  },
+  {
+    path: 'reset_password',
+    component: ResetPasswordComponent,
+    ...canActivate(() => redirectLoggedInTo(['/main']))
   }
 ];
 

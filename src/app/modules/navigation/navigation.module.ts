@@ -20,6 +20,9 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {MatTableModule} from "@angular/material/table";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatSelectModule} from "@angular/material/select";
+import {PdfViewerModule} from "ng2-pdf-viewer";
+import {StarRatingModule} from "angular-star-rating";
+import {MatTooltipModule} from "@angular/material/tooltip";
 
 @NgModule({
   declarations: [
@@ -47,6 +50,9 @@ import {MatSelectModule} from "@angular/material/select";
         MatTableModule,
         MatPaginatorModule,
         MatSelectModule,
+        PdfViewerModule,
+        StarRatingModule.forRoot(),
+        MatTooltipModule,
     ],
 })
 export class NavigationModule {

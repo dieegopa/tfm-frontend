@@ -1,0 +1,50 @@
+<div class="container bg-white px-0 py-3 h-screen">
+  <div class="flex space-x-1 items-center border-b-2 border-b-gray-100 px-3 pb-3 justify-between">
+    <div class="flex items-center justify-center flex-1">
+      <mat-icon class="mr-2">file_copy</mat-icon>
+      <div class="flex flex-col items-center">
+        <h2 class="m-0 p-0 fw-bold text-center">{{file?.name}}</h2>
+        <p class="text-sm text-gray-400 text-center m-0">Archivo</p>
+      </div>
+    </div>
+    <div>
+      <a [href]="file?.url" [download]="file?.name" target="_blank" mat-button mat-raised-button color="primary">Descargar</a>
+    </div>
+  </div>
+
+  <div class="flex space-x-3 p-2 h-full">
+    <!--File-->
+    <div class="basis-2/3 min-h-full flex items-center justify-center border-r-2 border-r-gray-100">
+      <ngx-doc-viewer *ngIf="file?.url"
+                      [url]="file!.url"
+                      viewer="google"
+                      (loaded)="onLoaded()"
+                      class="w-full h-3/4" #docViewer
+      ></ngx-doc-viewer>
+    </div>
+    <!--Rating and comments-->
+    <div class="flex-1">
+      <div class="flex justify-center items-center flex-column space-y-3">
+        <div class="flex items-center justify-start w-full border-b-2 border-b-gray-100 space-x-3">
+          <h3 class="m-0">Valoración global: </h3>
+          <star-rating *ngIf="file?.rating" [hoverEnabled]="true" [starType]="'svg'" [rating]="file!.rating"
+                       (ratingChange)="onRatingChange($event)"
+                       class="hover:cursor-pointer pointer-events-none"
+          ></star-rating>
+        </div>
+        <div class="flex items-center justify-center w-full border-b-2 border-b-gray-100 space-x-3"
+             *ngIf="!isOwnFile">
+          <h3 class="m-0">Vota: </h3>
+          <star-rating *ngIf="file?.rating" [hoverEnabled]="true" [starType]="'svg'" [rating]="file!.rating"
+                       (ratingChange)="onRatingChange($event)"
+                       class="hover:cursor-pointer"
+          ></star-rating>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+
