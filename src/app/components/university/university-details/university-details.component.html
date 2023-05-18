@@ -13,10 +13,21 @@
         <p class="text-sm text-gray-400 text-center m-0">Universidades</p>
       </div>
     </div>
-    <div>
+    <div class="flex space-x-2">
       <button type="button" (click)="addFavorite()"
               class="rounded-full border-2 border-gray-100 flex justify-center items-center">
-        <mat-icon class="text-gray-400 hover:text-amber-400 transition-all ease-in-out {{starName == 'star_border' ? '' : 'text-amber-400'}}">{{starName}}
+        <mat-icon
+          class="text-gray-400 hover:text-amber-400 transition-all ease-in-out {{starName == 'star_border' ? '' : '!text-amber-400'}}">{{starName}}
+        </mat-icon>
+      </button>
+      <button type="button"
+              class="rounded-full border-2 border-gray-100 flex justify-center items-center"
+              matTooltip="Compartir link"
+              matTooltipPosition="above"
+              (click)="share()"
+      >
+        <mat-icon
+          class="text-gray-400 hover:text-red-400 transition-all ease-in-out">share
         </mat-icon>
       </button>
     </div>
@@ -41,7 +52,7 @@
         <button type="button" (click)="addFavoriteDegree(degree)"
                 class="rounded-full border-2 border-gray-100 flex justify-center items-center">
           <mat-icon
-            class="text-gray-400 hover:text-amber-400 transition-all ease-in-out {{degree.favorite ? 'text-amber-400' : ''}}">{{degree.favorite ? 'star' : 'star_border'}}
+            class="text-gray-400 hover:text-amber-400 transition-all ease-in-out {{degree.favorite ? '!text-amber-400' : ''}}">{{degree.favorite ? 'star' : 'star_border'}}
           </mat-icon>
         </button>
       </div>

@@ -2,11 +2,14 @@ import {Injectable} from "@angular/core";
 import {
   Auth,
   createUserWithEmailAndPassword,
+  deleteUser,
+  getAuth,
   GoogleAuthProvider,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
-  sendPasswordResetEmail,
+  updatePassword,
 } from "@angular/fire/auth";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {User} from "../../shared/models/user.model";
@@ -66,24 +69,11 @@ export class UserService {
   }
 
   isLogged() {
-    if (this.cookies.get('authData')) {
-      const cookieData = JSON.parse(this.cookies.get('authData'));
-      if (new Date().getTime() > cookieData.validTime) {
-        this.logout()
-          .then(r => {
-              this.router.navigate(['/'])
-                .then(() => {
-                  setTimeout(() => {
-                    window.location.reload();
-                  }, 100)
-                })
-            }
-          )
-          .catch(e => {
-            console.log(e);
-          })
-      }
-      return new Date().getTime() <= cookieData.validTime;
+    const auth = getAuth();
+    const user = auth.currentUser;
+
+    if (user) {
+      return true;
     }
 
     return false;
@@ -112,6 +102,32 @@ export class UserService {
       map(response => {
         return response.body;
       })
+    );
+  }
+
+  getUserEmail() {
+    if (this.cookies.get('authData')) {
+      const cookieData = JSON.parse(this.cookies.get('authData'));
+      return cookieData.username;
+    }
+  }
+
+  changePassword(password: string) {
+    const auth = getAuth();
+    const user = auth.currentUser;
+    return updatePassword(user!, password);
+  }
+
+  deleteUserFirebase() {
+    const auth = getAuth();
+    const user = auth.currentUser;
+    return deleteUser(user!);
+  }
+
+  deleteuserBackend() {
+    return this.http.delete(
+      environment.backendUrl + '/api/users/' + this.getUserSub(),
+      {headers: this.getHeaders(), observe: 'response'}
     );
   }
 }

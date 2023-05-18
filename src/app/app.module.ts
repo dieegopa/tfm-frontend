@@ -42,6 +42,7 @@ import { GeneralComponent } from './components/general/general.component';
 import {NgxDocViewerModule} from "ngx-doc-viewer";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { ResetPasswordComponent } from './components/reset-password/reset-passwo
     FileComponent,
     GeneralComponent,
     ResetPasswordComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,

@@ -2,10 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {UserService} from "../../data/services/user.service";
 import {Router} from "@angular/router";
-import {User} from "../../shared/models/user.model";
 import {ErrorAuthMessage} from "../../shared/models/errorauth.model";
 import {NotificationService} from "../../data/services/notification.service";
 import {UserRegister} from "../../shared/models/userregister.model";
+import {CookieService} from "ngx-cookie-service";
 
 @Component({
   selector: 'app-register',
@@ -14,6 +14,17 @@ import {UserRegister} from "../../shared/models/userregister.model";
 })
 export class RegisterComponent implements OnInit {
 
+  authData: {
+    token: string,
+    validTime: number,
+    username: string | null,
+    userSub: string | null,
+  } = {
+    token: '',
+    validTime: 0,
+    username: '',
+    userSub: '',
+  }
   formReg: FormGroup;
   email = new FormControl('', [Validators.required, Validators.email]);
   password = new FormControl('', [Validators.required, Validators.minLength(6)]);
@@ -26,6 +37,7 @@ export class RegisterComponent implements OnInit {
     private userService: UserService,
     private router: Router,
     private notificationService: NotificationService,
+    private cookies: CookieService,
   ) {
     this.formReg = new FormGroup({
       email: this.email,
@@ -38,13 +50,29 @@ export class RegisterComponent implements OnInit {
 
   onSubmit() {
     this.userService.register(this.formReg.value)
-      .then(r => {
-        const user = new UserRegister(r.user.uid, r.user.email, );
+      .then(response => {
+        const user = new UserRegister(response.user.uid, response.user.email);
         this.userService.registerBackend(user).subscribe(
           r => {
             if (r.status == 200) {
               this.notificationService.showSuccesNotification('Usuario registrado correctamente');
-              this.router.navigate(['/login']);
+              response.user.getIdToken(true)
+                .then((idToken) => {
+                  this.authData.token = idToken;
+                  this.authData.validTime = new Date().getTime() + 3600 * 1000;
+                  this.authData.username = response.user.email;
+                  this.authData.userSub = response.user.uid;
+                  if(this.cookies.get('authData')) {
+                    this.cookies.delete('authData');
+                  }
+                  this.cookies.set('authData', JSON.stringify(this.authData));
+                  localStorage.setItem('logged', 'true');
+                });
+              this.router.navigate(['/main']).then(() => {
+                setTimeout(() => {
+                  window.location.reload();
+                }, 500)
+              });
             }
           }
         );

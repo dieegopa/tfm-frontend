@@ -19,6 +19,7 @@ export class GeneralComponent implements OnInit {
   dataSourceTable = new MatTableDataSource<any>();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   categories: any[] = [];
+  @ViewChild('input') input: any;
 
   constructor(
     private fileService: FileService,
@@ -60,14 +61,18 @@ export class GeneralComponent implements OnInit {
 
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
+  applyFilter(event: Event | null) {
+    if (event != null) {
+      const filterValue = (event.target as HTMLInputElement).value;
 
-    this.dataSourceTable.filterPredicate = function (data, filter: string): boolean {
-      return data.name.toLowerCase().includes(filter) || data.user.toLowerCase().includes(filter);
+      this.dataSourceTable.filterPredicate = function (data, filter: string): boolean {
+        return data.name.toLowerCase().includes(filter) || data.user.toLowerCase().includes(filter);
+      }
+
+      this.dataSourceTable.filter = filterValue.trim().toLowerCase();
+    } else {
+      this.dataSourceTable.filter = '';
     }
-
-    this.dataSourceTable.filter = filterValue.trim().toLowerCase();
   }
 
   onChange($event: any) {
@@ -101,6 +106,11 @@ export class GeneralComponent implements OnInit {
     } else {
       this.router.navigate(['/file/details/', row.id.toString()]);
     }
+  }
+
+  resetSearch() {
+    this.applyFilter(null);
+    this.input.nativeElement.value = '';
   }
 
 }

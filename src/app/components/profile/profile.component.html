@@ -1,0 +1,51 @@
+<div class="container bg-white px-0 py-3 min-h-full flex flex-column">
+  <div class="flex space-x-1 items-center border-b-2 border-b-gray-100 px-3 pb-3 justify-center space-x-3">
+    <mat-icon class="block mr-2">person</mat-icon>
+    <h1 class="m-0 p-0 fw-bold text-center">Mi Perfil</h1>
+  </div>
+
+
+  <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+    <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+      <img class="mx-auto h-16 w-auto" src="./assets/favicon.png" alt="Notekeeper">
+      <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Estos son tus datos</h2>
+    </div>
+
+    <div class="mt-2 sm:mx-auto sm:w-full sm:max-w-sm">
+      <div>
+        <mat-form-field appearance="fill" class="w-full">
+          <mat-label>Email</mat-label>
+          <input matInput placeholder="{{this.userEmail}}" value="{{this.userEmail}}" disabled>
+        </mat-form-field>
+      </div>
+
+      <form class="mb-4" [formGroup]="formChangePassword" (ngSubmit)="onSubmit()">
+
+        <div>
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Contraseña</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'" [formControl]="password" [(ngModel)]="changePassword"
+                   required>
+            <mat-error *ngIf="password.invalid">{{getErrorMessagePassword()}}</mat-error>
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                    [attr.aria-pressed]="hide">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+
+        <div>
+          <button mat-raised-button color="primary" type="submit"
+                  class="flex w-full justify-center rounded-md !bg-teal-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+            Cambiar contraseña
+          </button>
+        </div>
+      </form>
+
+      <button mat-raised-button color="warn" class="mt-10 text-center text-sm text-gray-500 w-full" (click)="deleteUser()">
+        Quieres darte de baja?
+      </button>
+    </div>
+  </div>
+
+</div>

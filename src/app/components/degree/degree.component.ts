@@ -10,6 +10,8 @@ import {CourseService} from "../../data/services/course.service";
 import {SubjectService} from "../../data/services/subject.service";
 import {Subject} from "../../shared/models/subject.model";
 import {NotificationService} from "../../data/services/notification.service";
+import {environment} from "../../../environments/environment";
+import {Clipboard} from "@angular/cdk/clipboard";
 
 @Component({
   selector: 'app-degree',
@@ -30,6 +32,7 @@ export class DegreeComponent implements OnInit, AfterViewInit {
   favorite: boolean = false;
   courses: any[] = [];
   userSub: string = '';
+  @ViewChild('input') input: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -39,6 +42,7 @@ export class DegreeComponent implements OnInit, AfterViewInit {
     private courseService: CourseService,
     private subjectService: SubjectService,
     private notificationService: NotificationService,
+    private clipboard: Clipboard,
   ) {
     this.route.url.subscribe((url) => {
       this.universitySlug = url[0].path;
@@ -46,8 +50,8 @@ export class DegreeComponent implements OnInit, AfterViewInit {
     });
 
     this.userSub = this.userService.getUserSub();
-    this.setData()
-    this.setCourseData()
+    this.setData();
+    this.setCourseData();
   }
 
   ngOnInit(): void {
@@ -61,22 +65,24 @@ export class DegreeComponent implements OnInit, AfterViewInit {
     this.router.navigate(['/university/' + this.universitySlug]);
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
+  applyFilter(event: Event | null) {
+    if (event != null) {
+      const filterValue = (event.target as HTMLInputElement).value;
 
-    this.dataSource.filterPredicate = function (data, filter: string): boolean {
-      return data.name.toLowerCase().includes(filter);
+      this.dataSource.filterPredicate = function (data, filter: string): boolean {
+        return data.name.toLowerCase().includes(filter);
+      }
+      this.dataSource.filter = filterValue.trim().toLowerCase();
+    } else {
+      this.dataSource.filter = '';
     }
-
-    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   getRecord(row: any) {
-    this.router.navigate(['/' + this.universitySlug + '/degree/' + this.degreeSlug + '/subject/' + row.slug] );
+    this.router.navigate(['/' + this.universitySlug + '/degree/' + this.degreeSlug + '/subject/' + row.slug]);
   }
 
   addFavoriteSubject(subject: Subject) {
-
     if (!this.userService.isLogged()) {
       this.router.navigate(['/login']);
     } else {
@@ -91,8 +97,6 @@ export class DegreeComponent implements OnInit, AfterViewInit {
           }
         });
     }
-
-
   }
 
   onChange($event: any) {
@@ -146,5 +150,16 @@ export class DegreeComponent implements OnInit, AfterViewInit {
           })
         })
       })
+  }
+
+  resetSearch() {
+    this.applyFilter(null);
+    this.input.nativeElement.value = '';
+  }
+
+  share() {
+    const shareUlr = environment.frontEndUlr + this.router.url;
+    this.clipboard.copy(shareUlr);
+    this.notificationService.showSuccesNotification('Enlace copiado al portapapeles');
   }
 }

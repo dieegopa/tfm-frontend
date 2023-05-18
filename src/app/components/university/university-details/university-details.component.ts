@@ -6,6 +6,8 @@ import {UniversityService} from "../../../data/services/university.service";
 import {DegreeService} from "../../../data/services/degree.service";
 import {Degree} from "../../../shared/models/degree.model";
 import {NotificationService} from "../../../data/services/notification.service";
+import {environment} from "../../../../environments/environment";
+import {Clipboard} from "@angular/cdk/clipboard";
 
 @Component({
   selector: 'app-university-details',
@@ -26,6 +28,7 @@ export class UniversityDetailsComponent implements OnInit {
     private universityService: UniversityService,
     private degreeService: DegreeService,
     private notificationService: NotificationService,
+    private clipboard: Clipboard,
   ) {
     this.userSub = this.userService.getUserSub();
     this.setDegrees();
@@ -94,6 +97,12 @@ export class UniversityDetailsComponent implements OnInit {
           })
         }
       })
+  }
+
+  share() {
+    const shareUlr = environment.frontEndUlr + this.router.url;
+    this.clipboard.copy(shareUlr);
+    this.notificationService.showSuccesNotification('Enlace copiado al portapapeles');
   }
 
 }

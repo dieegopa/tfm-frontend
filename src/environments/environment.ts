@@ -13,6 +13,7 @@ export const environment = {
   },
   production: false,
   backendUrl: 'https://127.0.0.1:8000',
+  frontEndUlr: 'http://localhost:4200',
 };
 
 /*

@@ -12,6 +12,7 @@ import {SubjectComponent} from "../../components/subject/subject.component";
 import {FileComponent} from "../../components/file/file.component";
 import {GeneralComponent} from "../../components/general/general.component";
 import {ResetPasswordComponent} from "../../components/reset-password/reset-password.component";
+import {ProfileComponent} from "../../components/profile/profile.component";
 
 const routes: Routes = [
   {
@@ -63,6 +64,10 @@ const routes: Routes = [
     path: 'reset_password',
     component: ResetPasswordComponent,
     ...canActivate(() => redirectLoggedInTo(['/main']))
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent,
   }
 ];
 

@@ -13,6 +13,9 @@ import {Category} from "../../shared/models/category.enum";
 import {Location} from "@angular/common";
 import {Degree} from "../../shared/models/degree.model";
 import {Report} from "notiflix";
+import {environment} from "../../../environments/environment";
+import {NotificationService} from "../../data/services/notification.service";
+import {Clipboard} from "@angular/cdk/clipboard";
 
 @Component({
   selector: 'app-subject',
@@ -32,6 +35,7 @@ export class SubjectComponent implements OnInit {
   files: File[] | undefined;
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
   degree: Degree | null | undefined;
+  @ViewChild('input') input: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -40,6 +44,8 @@ export class SubjectComponent implements OnInit {
     private dialog: MatDialog,
     private subjectService: SubjectService,
     private location: Location,
+    private notificationService: NotificationService,
+    private clipboard: Clipboard,
   ) {
     this.route.url.subscribe((url) => {
       this.universitySlug = url[0].path;
@@ -58,14 +64,18 @@ export class SubjectComponent implements OnInit {
     this.location.back();
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
+  applyFilter(event: Event | null) {
+    if (event != null) {
+      const filterValue = (event.target as HTMLInputElement).value;
 
-    this.dataSource.filterPredicate = function (data, filter: string): boolean {
-      return data.name.toLowerCase().includes(filter) || data.category.toLowerCase().includes(filter) || data.user.toLowerCase().includes(filter);
+      this.dataSource.filterPredicate = function (data, filter: string): boolean {
+        return data.name.toLowerCase().includes(filter) || data.category.toLowerCase().includes(filter) || data.user.toLowerCase().includes(filter);
+      }
+
+      this.dataSource.filter = filterValue.trim().toLowerCase();
+    } else {
+      this.dataSource.filter = '';
     }
-
-    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   download(url: string, $event: MouseEvent) {
@@ -143,6 +153,17 @@ export class SubjectComponent implements OnInit {
     } else {
       this.router.navigate(['/file/details/', row.id.toString()]);
     }
+  }
+
+  resetSearch() {
+    this.applyFilter(null);
+    this.input.nativeElement.value = '';
+  }
+
+  share() {
+    const shareUlr = environment.frontEndUlr + this.router.url;
+    this.clipboard.copy(shareUlr);
+    this.notificationService.showSuccesNotification('Enlace copiado al portapapeles');
   }
 
 }

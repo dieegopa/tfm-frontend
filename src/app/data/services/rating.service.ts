@@ -32,4 +32,15 @@ export class RatingService {
       })
     );
   }
+
+  getFileUserRating(fileId: string | undefined, userSub: string) {
+    return this.http.get(
+      environment.backendUrl + '/api/ratings/' + fileId + '/' + userSub,
+      {headers: this.getHeaders(), observe: 'response'}
+    ).pipe(
+      map((response: any) => {
+        return response.body;
+      })
+    );
+  }
 }

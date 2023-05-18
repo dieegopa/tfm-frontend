@@ -13,12 +13,28 @@
         <p class="text-sm text-gray-400 text-center m-0">Titulaciones</p>
       </div>
     </div>
+    <button type="button"
+            class="rounded-full border-2 border-gray-100 flex justify-center items-center"
+            matTooltip="Compartir link"
+            matTooltipPosition="above"
+            (click)="share()"
+    >
+      <mat-icon
+        class="text-gray-400 hover:text-red-400 transition-all ease-in-out">share
+      </mat-icon>
+    </button>
   </div>
 
   <div class="w-full px-3 flex justify-content-between">
     <mat-form-field class="w-2/3">
       <mat-label>Buscar</mat-label>
       <input matInput (keyup)="applyFilter($event)" placeholder="Asignatura" #input>
+      <button mat-button mat-icon-button matSuffix>
+        <mat-icon>search</mat-icon>
+      </button>
+      <button type="button" mat-button mat-icon-button matSuffix (click)="resetSearch()">
+        <mat-icon>clear</mat-icon>
+      </button>
     </mat-form-field>
 
     <mat-form-field>
@@ -33,7 +49,7 @@
   <table mat-table [dataSource]="dataSource" class="w-full">
 
     <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef class="text-left"> Asignatura </th>
+      <th mat-header-cell *matHeaderCellDef class="text-left"> Asignatura</th>
       <td mat-cell *matCellDef="let element" class="text-left"> {{element.name}} </td>
     </ng-container>
 
@@ -43,10 +59,13 @@
     </ng-container>
 
     <ng-container matColumnDef="favorite">
-      <th mat-header-cell *matHeaderCellDef> </th>
+      <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let element" class="text-center">
-        <button type="button" (click)="addFavoriteSubject(element)" class="text-center rounded-full border-2 border-gray-100 flex justify-center items-center" (click)="$event.stopPropagation()" >
-          <mat-icon class="text-gray-400 hover:text-amber-400 transition-all ease-in-out {{element.favorite ? 'text-amber-400' : ''}}">{{element.favorite ? 'star' : 'star_border'}}
+        <button type="button" (click)="addFavoriteSubject(element)"
+                class="text-center rounded-full border-2 border-gray-100 flex justify-center items-center"
+                (click)="$event.stopPropagation()">
+          <mat-icon
+            class="text-gray-400 hover:text-amber-400 transition-all ease-in-out {{element.favorite ? '!text-amber-400' : ''}}">{{element.favorite ? 'star' : 'star_border'}}
           </mat-icon>
         </button>
       </td>

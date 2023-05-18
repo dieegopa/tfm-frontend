@@ -63,7 +63,11 @@ export class LoginComponent implements OnInit {
             this.authData.validTime = new Date().getTime() + 3600 * 1000;
             this.authData.username = r.user.email;
             this.authData.userSub = r.user.uid;
+            if(this.cookies.get('authData')) {
+              this.cookies.delete('authData');
+            }
             this.cookies.set('authData', JSON.stringify(this.authData));
+            localStorage.setItem('logged', 'true');
           });
         this.notificationService.showSuccesNotification('Has iniciado sesión correctamente');
         this.router.navigate(['/main']).then(() => {
@@ -91,6 +95,9 @@ export class LoginComponent implements OnInit {
             this.authData.validTime = new Date().getTime() + 3600 * 1000;
             this.authData.username = r.user.email;
             this.authData.userSub = r.user.uid;
+            if (this.cookies.get('authData')) {
+              this.cookies.delete('authData');
+            }
             this.cookies.set('authData', JSON.stringify(this.authData));
           });
         this.notificationService.showSuccesNotification('Has iniciado sesión correctamente');

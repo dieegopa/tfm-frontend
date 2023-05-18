@@ -13,12 +13,28 @@
         <p class="text-sm text-gray-400 text-center m-0">Asignaturas</p>
       </div>
     </div>
+    <button type="button"
+            class="rounded-full border-2 border-gray-100 flex justify-center items-center"
+            matTooltip="Compartir link"
+            matTooltipPosition="above"
+            (click)="share()"
+    >
+      <mat-icon
+        class="text-gray-400 hover:text-red-400 transition-all ease-in-out">share
+      </mat-icon>
+    </button>
   </div>
 
   <div class="w-full px-3 flex justify-content-between items-center">
     <mat-form-field class="w-2/3">
       <mat-label>Buscar</mat-label>
       <input matInput (keyup)="applyFilter($event)" placeholder="Nombre, subidor, categoria, etc" #input>
+      <button mat-button mat-icon-button matSuffix>
+        <mat-icon>search</mat-icon>
+      </button>
+      <button type="button" mat-button mat-icon-button matSuffix (click)="resetSearch()">
+        <mat-icon>clear</mat-icon>
+      </button>
     </mat-form-field>
 
     <div *ngIf="isLogged()">

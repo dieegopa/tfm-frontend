@@ -15,7 +15,6 @@ import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
 import {FileService} from "../../data/services/file.service";
 import {Category} from "../../shared/models/category.enum";
-import {MatDialog} from "@angular/material/dialog";
 import {MatSelect} from "@angular/material/select";
 import {Report} from "notiflix";
 import {Router} from "@angular/router";
@@ -40,6 +39,7 @@ export class MainComponent implements OnInit {
   categories: any[] = [];
   @ViewChild('matSelectRef') matSelectRef: MatSelect | undefined;
   previousNodeRefName: string = '';
+  @ViewChild('input') input: any;
 
   private _transformer = (node: Sections, level: number) => {
     return {
@@ -216,14 +216,18 @@ export class MainComponent implements OnInit {
     this.dataSourceTable.paginator = this.paginator;
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
+  applyFilter(event: Event | null) {
+    if (event != null) {
+      const filterValue = (event.target as HTMLInputElement).value;
 
-    this.dataSourceTable.filterPredicate = function (data, filter: string): boolean {
-      return data.name.toLowerCase().includes(filter) || data.user.toLowerCase().includes(filter);
+      this.dataSourceTable.filterPredicate = function (data, filter: string): boolean {
+        return data.name.toLowerCase().includes(filter) || data.user.toLowerCase().includes(filter);
+      }
+
+      this.dataSourceTable.filter = filterValue.trim().toLowerCase();
+    } else {
+      this.dataSourceTable.filter = '';
     }
-
-    this.dataSourceTable.filter = filterValue.trim().toLowerCase();
   }
 
   onChange($event: any) {
@@ -257,6 +261,11 @@ export class MainComponent implements OnInit {
     } else {
       this.router.navigate(['/file/details/', row.id.toString()]);
     }
+  }
+
+  resetSearch() {
+    this.applyFilter(null);
+    this.input.nativeElement.value = '';
   }
 
 }
