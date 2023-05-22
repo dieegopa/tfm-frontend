@@ -9,4 +9,5 @@ export const environment = {
   },
   production: true,
   backendUrl: 'https://127.0.0.1:8000/api',
+  frontEndUlr: 'http://localhost:4200',
 };
