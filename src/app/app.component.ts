@@ -10,13 +10,12 @@ import {CookieService} from "ngx-cookie-service";
 })
 export class AppComponent {
   title = 'tfm-front';
-  isLogged: boolean = false;
+  isLogged: boolean = true;
   cookie: string = '';
 
   constructor(
     private userService: UserService,
     private router: Router,
-    private cookieService: CookieService,
   ) {
 
     setTimeout(() => {

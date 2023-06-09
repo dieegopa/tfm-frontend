@@ -34,7 +34,7 @@ export class DegreeService {
   }
 
   setFavoriteDegree(degreeId: number | string, userSub: string) {
-    return this.http.post<{ favorite: boolean }>(
+    return this.http.patch<{ favorite: boolean }>(
       environment.backendUrl + '/api/degrees/favorite',
       {
         degree_id: degreeId,

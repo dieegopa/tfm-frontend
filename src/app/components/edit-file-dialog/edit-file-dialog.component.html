@@ -1,0 +1,34 @@
+<div>
+  <h2>Editar Archivo</h2>
+  <form class="dialog-form" [formGroup]="formUpload" (ngSubmit)="onSubmit()">
+    <div class="flex flex-column lg:!flex-row">
+      <!-- Tab panes -->
+      <div class="flex pl-2 flex-col space-y-2">
+        <h4>Edita atributos de tus archivos</h4>
+        <p>Cambia el nombre, categoria o comentarios.</p>
+        <mat-form-field appearance="fill">
+          <mat-label>Nombre</mat-label>
+          <input matInput value="{{file?.name}}" [formControl]="fileNameControl" [(ngModel)]="fileName">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Categoría</mat-label>
+          <mat-select [formControl]="fileCategoryControl" [(ngModel)]="fileCategories">
+            <mat-option>Selecciona</mat-option>
+            <mat-option *ngFor="let category of categories"
+                        [value]=category.value>{{category.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Extras</mat-label>
+          <input matInput placeholder="Profesor, clase, grupo, etc." [formControl]="fileExtrasControl"
+                 [(ngModel)]="fileExtras">
+        </mat-form-field>
+        <div class="flex items-center justify-center lg:!justify-end space-x-2 mt-0 lg:!mt-5 mb-3 lg:!mb-0">
+          <button type="button" mat-raised-button mat-dialog-close>Cancelar</button>
+          <button type="submit" mat-raised-button class="bg-teal-700 text-white" cdkFocusInitial>Editar Archivo
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

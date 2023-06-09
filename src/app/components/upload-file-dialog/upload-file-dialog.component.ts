@@ -254,8 +254,6 @@ export class UploadFileDialogComponent implements OnInit {
           }
         );
       });
-
-      //this.notificationService.showSuccesNotification('Archivos subidos con exito');
       this.dialogRef.close();
     } else {
       if (!this.uploaded) {

@@ -23,7 +23,9 @@ export class NavigationComponent implements OnInit {
   isShowDivIf = false;
 
   ngOnInit(): void {
-    this.isLogged = this.userService.isLogged();
+    setTimeout(() => {
+      this.isLogged = this.userService.isLogged();
+    }, 500);
   }
 
   logout() {

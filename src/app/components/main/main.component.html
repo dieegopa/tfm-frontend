@@ -83,10 +83,16 @@
             <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let element" class="text-center">
               <a [href]="element.url" download="{{element.name}}" target="_blank"
-                 (click)="$event.stopPropagation()">
+                 (click)="$event.stopPropagation()" class="mr-2">
                 <mat-icon class="text-gray-400 hover:text-gray-700 transition-all ease-in-out">cloud_download
                 </mat-icon>
               </a>
+              <button class="mr-2" *ngIf="insideOwnFiles" (click)="$event.stopPropagation()" (click)="deleteFile(element)">
+                <mat-icon class="text-gray-400 hover:text-gray-700 transition-all ease-in-out">delete</mat-icon>
+              </button>
+              <button class="mr-2" *ngIf="insideOwnFiles" (click)="$event.stopPropagation()" (click)="editFile(element)">
+                <mat-icon class="text-gray-400 hover:text-gray-700 transition-all ease-in-out">edit</mat-icon>
+              </button>
             </td>
           </ng-container>
 

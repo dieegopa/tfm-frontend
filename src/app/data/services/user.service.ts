@@ -72,11 +72,8 @@ export class UserService {
     const auth = getAuth();
     const user = auth.currentUser;
 
-    if (user) {
-      return true;
-    }
+    return !!user;
 
-    return false;
   }
 
   getUserSub() {
@@ -124,7 +121,7 @@ export class UserService {
     return deleteUser(user!);
   }
 
-  deleteuserBackend() {
+  deleteUserBackend() {
     return this.http.delete(
       environment.backendUrl + '/api/users/' + this.getUserSub(),
       {headers: this.getHeaders(), observe: 'response'}

@@ -55,7 +55,6 @@ export class FileComponent implements OnInit, AfterViewInit {
   }
 
   onRatingChange(event: any) {
-    console.log(event)
     this.ratingService
       .setRating(this.fileId, this.userService.getUserSub(), event.rating)
       .subscribe((file) => {

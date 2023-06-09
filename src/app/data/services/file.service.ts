@@ -29,6 +29,17 @@ export class FileService {
     );
   }
 
+  updateFile(id: number | undefined, fileName: string, category: string, fileExta: string) {
+    return this.http.put(
+      environment.backendUrl + '/api/files/' + id, {
+        fileName: fileName,
+        category: category,
+        fileExtra: fileExta
+      },
+      {headers: this.getHeaders(), observe: 'response'}
+    );
+  }
+
   getUserFiles(userSub: string | undefined) {
     return this.http.get<File []>(
       environment.backendUrl + '/api/files/user/' + userSub,
@@ -65,6 +76,17 @@ export class FileService {
   getFiles() {
     return this.http.get<any []>(
       environment.backendUrl + '/api/files',
+      {headers: this.getHeaders(), observe: 'response'}
+    ).pipe(
+      map((response: any) => {
+        return response.body;
+      })
+    );
+  }
+
+  deleteFile(id: number | undefined) {
+    return this.http.delete(
+      environment.backendUrl + '/api/files/' + id,
       {headers: this.getHeaders(), observe: 'response'}
     ).pipe(
       map((response: any) => {

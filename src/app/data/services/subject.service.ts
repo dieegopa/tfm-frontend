@@ -34,7 +34,7 @@ export class SubjectService {
   }
 
   setFavoriteSubject(subjectId: number | string, userSub: string) {
-    return this.http.post<{ favorite: boolean }>(
+    return this.http.patch<{ favorite: boolean }>(
       environment.backendUrl + '/api/subjects/favorite',
       {
         subject_id: subjectId,

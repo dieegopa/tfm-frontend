@@ -16,8 +16,10 @@ import {MatPaginator} from "@angular/material/paginator";
 import {FileService} from "../../data/services/file.service";
 import {Category} from "../../shared/models/category.enum";
 import {MatSelect} from "@angular/material/select";
-import {Report} from "notiflix";
+import {Confirm, Report} from "notiflix";
 import {Router} from "@angular/router";
+import {MatDialog} from "@angular/material/dialog";
+import {EditFileDialogComponent} from "../edit-file-dialog/edit-file-dialog.component";
 
 @Component({
   selector: 'app-main',
@@ -69,6 +71,7 @@ export class MainComponent implements OnInit {
     private userService: UserService,
     private fileService: FileService,
     private router: Router,
+    private dialog: MatDialog,
   ) {
   }
 
@@ -266,6 +269,41 @@ export class MainComponent implements OnInit {
   resetSearch() {
     this.applyFilter(null);
     this.input.nativeElement.value = '';
+  }
+
+  deleteFile(element: any) {
+    Confirm.show(
+      'Eliminar Archivo',
+      'Estas seguro de que quieres eliminar el archivo? Esta acción no se puede deshacer',
+      'Si',
+      'No',
+      () => {
+        this.fileService.deleteFile(element.id)
+          .subscribe((response) => {
+            this.getMainData();
+          });
+      },
+      () => {
+
+      },
+      {
+        titleColor: '#0D9488',
+        okButtonColor: '#FFF',
+        okButtonBackground: '#f44336',
+      },
+    );
+  }
+
+  editFile(element: any) {
+    this.fileService.getFile(element.id).subscribe(
+      (response) => {
+        this.dialog.open(EditFileDialogComponent, {
+          data: {
+            file: response,
+          },
+        });
+      }
+    )
   }
 
 }

@@ -70,7 +70,7 @@ export class ProfileComponent implements OnInit {
       'No',
       () => {
         this.userService.deleteUserFirebase().then(r => {
-          this.userService.deleteuserBackend().subscribe(r => {
+          this.userService.deleteUserBackend().subscribe(r => {
             this.notificationService.showSuccesNotification('Se ha dado de baja correctamente');
             setTimeout(() => {
               this.userService.logout()

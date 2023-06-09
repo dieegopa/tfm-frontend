@@ -22,7 +22,7 @@ export class RatingService {
   }
 
   setRating(fileId: string | undefined, userSub: string | undefined, value: number) {
-    return this.http.post(
+    return this.http.patch(
       environment.backendUrl + '/api/ratings',
       JSON.stringify({file_id: fileId, user_sub: userSub, value: value}),
       {headers: this.getHeaders(), observe: 'response'}

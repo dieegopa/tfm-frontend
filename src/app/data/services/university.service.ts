@@ -57,7 +57,7 @@ export class UniversityService {
   }
 
   setFavoriteUniversity(universityId: number | string, userSub: string) {
-    return this.http.post<{ favorite: boolean }>(
+    return this.http.patch<{ favorite: boolean }>(
       environment.backendUrl + '/api/universities/favorite',
       {
         university_id: universityId,
