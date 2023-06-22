@@ -5,7 +5,7 @@
         <div class="absolute z-0 inset-y-0 left-0 flex items-center lg:hidden justify-between w-full">
           <a
             (click)=toggleLink()
-            routerLink="/"
+            [routerLink]="isLogged ? '/main' : '/'"
             class="h-8 w-auto block z-30 inline-flex"
           >
             <img src="./assets/favicon.png" class="z-30 h-8 w-auto block inline-flex">
@@ -41,7 +41,7 @@
           <div class="flex flex-shrink-0 items-center">
 
             <a
-              routerLink="/"
+              [routerLink]="isLogged ? '/main' : '/'"
               class="hidden h-8 w-auto lg:block"
             >
               <img src="./assets/favicon.png" class="hidden h-8 w-auto lg:block">
