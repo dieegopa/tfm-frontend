@@ -13,6 +13,7 @@ import {FileComponent} from "../../components/file/file.component";
 import {GeneralComponent} from "../../components/general/general.component";
 import {ResetPasswordComponent} from "../../components/reset-password/reset-password.component";
 import {ProfileComponent} from "../../components/profile/profile.component";
+import {PoliticsComponent} from "../../components/politics/politics.component";
 
 const routes: Routes = [
   {
@@ -68,6 +69,11 @@ const routes: Routes = [
   {
     path: 'profile',
     component: ProfileComponent,
+    ...canActivate(() => redirectUnauthorizedTo(['/login'])),
+  },
+  {
+    path: 'politics',
+    component: PoliticsComponent,
   }
 ];
 

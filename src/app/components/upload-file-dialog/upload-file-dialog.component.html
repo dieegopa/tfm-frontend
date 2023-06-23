@@ -45,6 +45,10 @@
         <h4>Completa la información de la subida</h4>
         <p>Selecciona la universidad, el estudio y la asignatura</p>
         <p>Los archivos se subirán a la asignatura de manera independiente</p>
+        <div class="mb-1 bg-red-500 p-1 text-center rounded-md text-white">
+          <p>Solo se permiten subir archivos originales o que cuenten con derechos de distribución libre</p>
+          <p>Cualquier infracción de esta norma será motivo de castigo</p>
+        </div>
         <div class="container" appDnd (fileDropped)="onFileDropped($event)">
           <input type="file" #fileDropRef id="fileDropRef" multiple (change)="fileBrowseHandler($event)"/>
           <mat-icon>file_copy</mat-icon>

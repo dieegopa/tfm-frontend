@@ -44,6 +44,7 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import {EditFileDialogComponent} from "./components/edit-file-dialog/edit-file-dialog.component";
+import { PoliticsComponent } from './components/politics/politics.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import {EditFileDialogComponent} from "./components/edit-file-dialog/edit-file-d
     GeneralComponent,
     ResetPasswordComponent,
     ProfileComponent,
+    PoliticsComponent,
   ],
   imports: [
     BrowserModule,
